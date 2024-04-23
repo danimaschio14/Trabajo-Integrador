@@ -54,7 +54,7 @@ export class AuthService {
         dto.lastname,
         dto.email,
         this.encryptPass(dto.password),
-        UserRole.CLIENT,
+        UserRole.EMPLOYEE,
         UserStatus.ACTIVE
       )
     );

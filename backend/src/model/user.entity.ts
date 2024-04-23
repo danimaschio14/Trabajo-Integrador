@@ -29,7 +29,7 @@ export class User {
     lastName: string
     
     @AutoMap()
-    @Column({ })
+    @Column({ unique: true})
     email: string
 
     @AutoMap()

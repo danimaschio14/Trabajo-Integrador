@@ -1,0 +1,6 @@
+export enum ActivityType {
+
+    MANAGMENT = 'MANAGMENT',
+    LOGISTIC = 'LOGISTIC',
+    CUSTOMER_SERVICE = 'CUSTOMER SERVICE'
+}
