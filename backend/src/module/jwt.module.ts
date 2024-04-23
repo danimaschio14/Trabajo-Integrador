@@ -4,7 +4,7 @@ import { Module } from "@nestjs/common";
 @Module({
     imports : [JwtModule.register({
         global: true,
-        secret: 'secret',
+        secret: 'dawsecreto',
         signOptions: {
             expiresIn: '24h'
         },

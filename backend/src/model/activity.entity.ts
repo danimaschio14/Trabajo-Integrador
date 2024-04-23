@@ -1,20 +1,20 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ActivityType } from "src/enum/activity.type";
-import { AutoMap } from "@automapper/classes";
+// import { AutoMap } from "@automapper/classes";
 
 @Entity('activity')
 export class Activity{
  
-    @AutoMap()
+    // @AutoMap()
     @PrimaryGeneratedColumn()
     id: number;
     
-    @AutoMap()
+    // @AutoMap()
     @Column()
     name : string
 
-    @AutoMap()
+    // @AutoMap()
     @Column()
     type : ActivityType
 }

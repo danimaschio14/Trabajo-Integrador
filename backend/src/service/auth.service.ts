@@ -1,73 +1,66 @@
-import * as bcrypt from 'bcryptjs';
-
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-
-import { InjectMapper } from '@automapper/nestjs';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { LoginDto } from 'src/dtos/login.dto';
-import { Mapper } from '@automapper/core';
 import { User } from 'src/model/user.entity';
-import { UserDto } from 'src/dtos/user.dto';
-import { UserRole } from 'src/enum/user.role';
 import { UserService } from './user.service';
-import { UserStatus } from 'src/enum/user.status';
+import { CreatUserDto } from 'src/dto/create-user.dto';
+import { LoginDto } from 'src/dto/login.dto';
 
 @Injectable()
 export class AuthService {
 
-  private token: string;
-  private user: User;
+  constructor(
+    @InjectRepository(User) private userepo: Repository<User>,
+    private usuariosService: UserService,
+    private jwtService: JwtService
+  ) { }
 
-  constructor(private userService: UserService,
-    private jwtService: JwtService) {
-  }
+  async login(loginDto: LoginDto) {
+    const user: User = await this.userepo.findOne({
+      where: {
+        email: loginDto.email,
+      },
+    });
 
-  async login(dto: LoginDto): Promise<{ token: string }> {
-    const user: User = await this.userService.getUser(dto);
-
-    console.log(user)
     if (!user) {
-      throw new BadRequestException("El nombre de usuario es incorrecto")
-    }
-    
-    const passwordSuccess: boolean = bcrypt.compareSync(dto.password, user.password);
-    
-    if (!passwordSuccess) {
-      throw new UnauthorizedException("La clave ingresada es incorrecta")
+      throw new BadRequestException('Invalid username')
     }
 
-    this.getToken(user.id.toString(), user.role).then(
-      (res) => this.token = res);
+    const correctPassword: boolean = bcrypt.compareSync(loginDto.password, user.password);
 
-    return { token: this.token };
+    if (!correctPassword) {
+      throw new BadRequestException('correct key');
+    }
+
+    const token: string = this.jwtService.sign({
+      sub: user.id,
+      rol: user.role,
+    });
+
+    return { token };
+
   }
 
-  async register(dto: UserDto): Promise<User> {
-    this.user = await this.userService.getUser(dto);
-    if (this.user != null) {
-      throw new BadRequestException("El usuario ya existe")
-    }   
-    
-    return this.userService.createUser(
-      new User(
-        dto.name,
-        dto.lastname,
-        dto.email,
-        this.encryptPass(dto.password),
-        UserRole.EMPLOYEE,
-        UserStatus.ACTIVE
-      )
-    );
-  }
+  async register({ name, lastName, email, password, role, status }: CreatUserDto) {
 
-  private async getToken(id: string, role: UserRole): Promise<string> {
-    return this.jwtService.sign({
-      sub: id,
-      rol: role.valueOf()
-    })
-  }
+    const user = await this.usuariosService.findOneByEmail(email)
+    if (user) {
+      throw new BadRequestException("User already exists")
 
-  private encryptPass(pass: string): string {
-    return bcrypt.hashSync(pass, 10)
-  }
+    }
+
+    return await this.usuariosService.creatUser({
+      name,
+      lastName,
+      email,
+      password: await bcryptjs.hash(password, 10),
+      role,
+      status
+    });
+  };
+
+
 }

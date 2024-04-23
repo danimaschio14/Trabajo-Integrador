@@ -3,39 +3,39 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { Activity } from "./activity.entity";
 import { ActivityPriority } from "src/enum/activity.priority";
 import { ActivityStatus } from "src/enum/activity.status";
-import { AutoMap } from "@automapper/classes";
+// import { AutoMap } from "@automapper/classes";
 import { User } from "./user.entity";
 
 @Entity('registry')
 export class Registry {
 
-    @AutoMap()
+    // @AutoMap()
     @PrimaryGeneratedColumn()
     id: number;
     
-    @AutoMap()
+    // @AutoMap()
     @Column()
     status : ActivityStatus
 
-    @AutoMap()
+    // @AutoMap()
     @Column()
     priority : ActivityPriority
 
-    @AutoMap()
+    // @AutoMap()
     @Column()
     description : string
 
-    @AutoMap()
+    // @AutoMap()
     @Column()
     date : Date
     
-    @AutoMap()
+    // @AutoMap()
     @ManyToOne( () => User)
     @JoinColumn({ name : 'id'})
     @Column({ name: 'user_id'})
     userId : User
 
-    @AutoMap()
+    // @AutoMap()
     @ManyToOne( () => Activity)
     @JoinColumn({ name : 'id'})
     @Column({ name : 'activity_id'})
