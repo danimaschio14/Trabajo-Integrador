@@ -16,8 +16,7 @@ export class Registry {
 
     @Column()
     priority : ActivityPriority
-
-     
+   
     @Column()
     description : string
 

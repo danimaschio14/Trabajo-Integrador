@@ -23,10 +23,8 @@ export class User {
     @Column()
     password : string
     
-
     @Column({ type: 'enum', enum: UserRole})
     role : UserRole 
-
 
     @Column({ type: 'enum', enum: UserStatus})
     status : UserStatus  

@@ -1,8 +1,8 @@
-import { Transform } from "class-transformer"
 import { IsEmail, IsString, MinLength } from "class-validator"
+
+import { Transform } from "class-transformer"
 import { UserRole } from "src/enum/user-role"
 import { UserStatus } from "src/enum/user-status"
-
 
 export class CreatUserDto {
     
