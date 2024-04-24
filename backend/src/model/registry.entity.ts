@@ -4,6 +4,7 @@ import { Activity } from "./activity.entity";
 import { ActivityPriority } from "src/enum/activity.priority";
 import { ActivityStatus } from "src/enum/activity.status";
 import { User } from "./user.entity";
+import { Expose } from "class-transformer";
 
 @Entity('registry')
 export class Registry {
@@ -23,13 +24,10 @@ export class Registry {
     @Column()
     date : Date
     
+    @Expose()
     @ManyToOne( () => User)
-    @JoinColumn({ name : 'id'})
-    @Column({ name: 'user_id'})
-    userId : User
+    user : User
 
-    @ManyToOne( () => Activity)
-    @JoinColumn({ name : 'id'})
-    @Column({ name : 'activity_id'})
-    activityId : Activity
+    @ManyToOne( () => Activity, activity =>  activity.records)
+    activity : Activity
 } 

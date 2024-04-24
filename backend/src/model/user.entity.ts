@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { UserRole } from "src/enum/user-role";
 import { UserStatus } from "src/enum/user-status";
+import { Activity } from "./activity.entity";
 
 @Entity('user')
 export class User {
@@ -15,7 +16,6 @@ export class User {
     @Column()
     lastName: string
     
-   
     @Column()
     email: string
 
@@ -28,4 +28,8 @@ export class User {
 
     @Column({ type: 'enum', enum: UserStatus})
     status : UserStatus  
+
+    @Expose()
+    @OneToMany( ()=> Activity, activity => activity.user)
+    activities : Activity[]
 }
