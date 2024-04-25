@@ -1,26 +1,25 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { ActivityType } from "src/enum/activity.type";
 import { Registry } from "./registry.entity";
 import { User } from "./user.entity";
-import { register } from "module";
 import { Expose } from "class-transformer";
+import { ActivityStatus } from "src/enum/activity.status";
 
 @Entity('activity')
 export class Activity{
  
     @PrimaryGeneratedColumn()
     id: number;
-     
+    
     @Column()
-    name : string
- 
-    @Column()
-    type : ActivityType
+    description : string
 
-    @Expose()
-    @ManyToOne( ()=> User, user => user.id )
-    user : User
+    @Column({ default: ActivityStatus.CREATED})
+    status : ActivityStatus
+
+    @ManyToOne(()=>User)
+    @JoinColumn({name:'id_usuario'})
+    user:User;
         
     @Expose()
     @OneToMany( () => Registry, registry => registry.activity)

@@ -2,28 +2,25 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 
 import { Activity } from "./activity.entity";
 import { ActivityPriority } from "src/enum/activity.priority";
-import { ActivityStatus } from "src/enum/activity.status";
 import { User } from "./user.entity";
 import { Expose } from "class-transformer";
+import { ActivityType } from "src/enum/activity.type";
 
 @Entity('registry')
 export class Registry {
 
     @PrimaryGeneratedColumn()
     id: number;
-         
-    @Column()
-    status : ActivityStatus
-
+  
     @Column()
     priority : ActivityPriority
-   
-    @Column()
-    description : string
 
     @Column()
     date : Date
-    
+
+    @Column()
+    type : ActivityType
+
     @Expose()
     @ManyToOne( () => User)
     user : User
