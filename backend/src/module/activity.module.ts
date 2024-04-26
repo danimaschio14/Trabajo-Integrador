@@ -1,6 +1,7 @@
 import { Activity } from "src/model/activity.entity";
 import { ActivityController } from "src/controller/activity.controller";
 import { ActivityService } from "src/service/activity.service";
+import { AuthModule } from "./auth.module";
 import { Criteria } from "src/model/criteria.entity";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -9,10 +10,10 @@ import { UserModule } from "./user.module";
 import { UserService } from "src/service/user.service";
 
 @Module({
-    imports:[TypeOrmModule.forFeature([Activity]), TypeOrmModule.forFeature([User])],
     controllers:[ActivityController],
-    providers:[ActivityService, UserService, Criteria],
-    exports:[]
+    imports:[AuthModule,UserModule,TypeOrmModule.forFeature([Activity,User])],
+    providers:[ActivityService,UserService,Criteria]
 })
+export class ActivityModule{
 
-export class ActivityModule{}
+}

@@ -1,32 +1,27 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+import { ActivityStatus } from "src/enum/activity.status";
 import { ActivityType } from "src/enum/activity.type";
 import { Expose } from "class-transformer";
 import { Registry } from "./registry.entity";
 import { User } from "./user.entity";
-import { register } from "module";
+import { constructUsing } from '@automapper/core';
 
 @Entity('activity')
 export class Activity{
- 
-    constructor(name: string, type : ActivityType, user: User){
-        this.name = name
-        this.type = type
-        this.user = user
-    }
     
     @PrimaryGeneratedColumn()
     id: number;
-     
+    
     @Column()
-    name : string
- 
-    @Column()
-    type : ActivityType
+    description : string
 
-    @Expose()
-    @ManyToOne( ()=> User, user => user.id )
-    user : User
+    @Column({ default: ActivityStatus.CREATED})
+    status : ActivityStatus
+
+    @ManyToOne(()=>User)
+    @JoinColumn({name:'id_usuario'})
+    user:User;
         
     @Expose()
     @OneToMany( () => Registry, registry => registry.activity)

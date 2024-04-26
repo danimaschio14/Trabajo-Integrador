@@ -1,13 +1,37 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
-import { CreateActivityDto } from "src/dto/create-activity.dto";
-import { Activity } from "src/model/activity.entity";
-import { Criteria } from "src/model/criteria.entity";
-import { ActivityService } from "src/service/activity.service";
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { Roles } from 'src/decorators/roles.decorator';
+import { CreateActivityDto } from 'src/dto/create-actividad.dto';
+import { UserRole } from 'src/enum/user-role';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { Criteria } from 'src/model/criteria.entity';
+import { ActivityService } from 'src/service/activity.service';
 
-@Controller("activity")
-export class ActivityController{
+@Controller('/activity')
+export class ActivityController {
+  constructor(private activityService: ActivityService) {}
 
-    constructor(private activityService : ActivityService){}
+  // @ApiBearerAuth()
+  @Roles([UserRole.ADMIN])
+  @UseGuards(AuthGuard)
+  @Post()
+  async createActivity(
+    @Req() request: Request,
+    @Body() createActivityDto: CreateActivityDto,
+  ) {
+    await this.activityService.createActivity(
+      createActivityDto,
+      request['user'],
+    );
+  }
+
+  // @ApiBearerAuth()
+  @Roles([UserRole.ADMIN,UserRole.EMPLOYEE])
+  @UseGuards(AuthGuard)
+  @Get()
+  async getActividades(@Req()request : Request){
+    return await this.activityService.getActivity(request['user']); 
+  }
   
     @Get(":id")
     getActivity (@Param("id",ParseIntPipe) id: number ) {
@@ -15,12 +39,12 @@ export class ActivityController{
     }
 
     @Get("")
-    getActivityByCriteria (@Body() criteria : Criteria ) {
+    getActivitiesByCriteria (@Body() criteria : Criteria ) {
         return this.activityService.getActivityByCriteria(criteria)
     }
 
-    @Post("create")
-    createActivity (@Body() activityDto : CreateActivityDto){
-        return this.activityService.createActivity(activityDto)
-    }
+    // @Post("create")
+    // createActivity (@Body() activityDto : CreateActivityDto){
+    //     return this.activityService.createActivity(activityDto)
+    // }
 }

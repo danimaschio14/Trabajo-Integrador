@@ -29,7 +29,7 @@ export class User {
     @Column({ type: 'enum', enum: UserStatus})
     status : UserStatus  
 
-    @Expose()
-    @OneToMany( ()=> Activity, activity => activity.user)
-    activities : Activity[]
+    // @Expose()
+    // @OneToMany( ()=> Activity, activity => activity.user)
+    // activities : Activity[]
 }
