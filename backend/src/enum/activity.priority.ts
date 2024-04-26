@@ -1,5 +1,6 @@
 export enum ActivityPriority{
     HIGH = 'HIGH',
     MEDIUM = 'MEDIUM',
-    LOW = 'LOW'
+    LOW = 'LOW',
+    UNDEFINED = 'WITHOUT VALUE YET'
 }

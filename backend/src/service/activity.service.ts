@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
 import { Activity } from 'src/model/activity.entity';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,6 +9,10 @@ import { ActivityStatus } from 'src/enum/activity.status';
 import { UserService } from './user.service';
 import { UserRole } from 'src/enum/user-role';
 import { Criteria } from 'src/model/criteria.entity';
+import { ActivityRecordService } from './activity.record.service';
+import { CreateActivityDto2 } from 'src/dto/create-activity.dto';
+import { CreateRecordDto } from 'src/dto/create-record.dto';
+import { ActivityPriority } from 'src/enum/activity.priority';
 
 
 @Injectable()
@@ -16,18 +20,35 @@ export class ActivityService {
   constructor(
     @InjectRepository(Activity) private activiyRepository: Repository<Activity>,
     private userService: UserService,
+    private recordService : ActivityRecordService
   ) {}
 
   async createActivity(createActivityDto: CreateActivityDto, user: User) {
     const activity: Activity = this.activiyRepository.create();
-    activity.description = createActivityDto.description;
-    activity.status = ActivityStatus.CREATED;
+    activity.title = createActivityDto.description;
+    //activity.status = ActivityStatus.CREATED;
     // activity.user = await this.userService.findOneById(
     //   createActivityDto.user,
     // );
+    //activity.user = user;
     activity.user = user;
     await this.activiyRepository.save(activity);
   }
+
+    async createActivity2 ( activityDto: CreateActivityDto2) {
+    const user = await this.userService.findOneById(activityDto.userId)
+    const activity = await this.activiyRepository.save(new Activity (activityDto.name, activityDto.type, user))
+    
+    console.log(activity)
+    
+    //TODO: En record Created, el userID debe ser del admin que generó la actividad, según jwt login
+    let recordDtoCreated = new CreateRecordDto(ActivityStatus.CREATED, ActivityPriority.UNDEFINED, 'INICIO DE ACTIVIDAD', activityDto.userId, activity.id )
+    let recordDtoPending = new CreateRecordDto(ActivityStatus.PENDING, activityDto.priority, 'ASIGNADA', activityDto.userId, activity.id )
+    await this.recordService.createRecord(recordDtoCreated)
+    await this.recordService.createRecord(recordDtoPending)
+
+    return activity
+}
 
   async getActivity(user: User): Promise<Activity[]> {
     const role:UserRole =  user.role;
@@ -47,11 +68,6 @@ export class ActivityService {
     return await consulta.getMany();
   }
 
-//   async createActivity ( activityDto: CreateActivityDto) {
-//     const user = await this.userService.findOneById(activityDto.userId)
-//     const activity = new Activity (activityDto.name, activityDto.type, user) 
-//     return await this.activiyRepository.save(activity)
-// }
 
 async getActivityById( id : number ) {
     const activity = await this.activiyRepository.findOne({

@@ -12,7 +12,8 @@ import { UserService } from "src/service/user.service";
 @Module({
     controllers:[ActivityController],
     imports:[AuthModule,UserModule,TypeOrmModule.forFeature([Activity,User])],
-    providers:[ActivityService,UserService,Criteria]
+    providers:[ActivityService, UserService, Criteria],
+    exports: [ActivityService]
 })
 export class ActivityModule{
 

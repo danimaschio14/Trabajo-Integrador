@@ -3,12 +3,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { Activity } from "./activity.entity";
 import { ActivityPriority } from "src/enum/activity.priority";
 import { ActivityStatus } from "src/enum/activity.status";
-import { ActivityType } from "src/enum/activity.type";
 import { Expose } from "class-transformer";
 import { User } from "./user.entity";
 
-@Entity('registry')
-export class Registry {
+@Entity('record')
+export class ActivityRecord {
 
     constructor(priority : ActivityPriority, date : Date, user : User , activity : Activity){
         this.priority = priority
@@ -18,16 +17,19 @@ export class Registry {
     }
     
     @PrimaryGeneratedColumn()
-    id: number;
-  
+    id: number
+
     @Column()
+    description : string
+  
+    @Column({ type: 'enum', enum: ActivityStatus, default: ActivityStatus.CREATED})
+    status : ActivityStatus
+    
+    @Column({ type: 'enum', enum: ActivityPriority})
     priority : ActivityPriority
 
     @Column()
     date : Date
-
-    @Column()
-    type : ActivityType
 
     @Expose()
     @ManyToOne( () => User)

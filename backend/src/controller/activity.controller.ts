@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
 import { Roles } from 'src/decorators/roles.decorator';
 import { CreateActivityDto } from 'src/dto/create-actividad.dto';
+import { CreateActivityDto2 } from 'src/dto/create-activity.dto';
 import { UserRole } from 'src/enum/user-role';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { Criteria } from 'src/model/criteria.entity';
@@ -43,8 +43,8 @@ export class ActivityController {
         return this.activityService.getActivityByCriteria(criteria)
     }
 
-    // @Post("create")
-    // createActivity (@Body() activityDto : CreateActivityDto){
-    //     return this.activityService.createActivity(activityDto)
-    // }
+    @Post("create")
+    createActivity2 (@Body() activityDto : CreateActivityDto2){
+        return this.activityService.createActivity2(activityDto)
+    }
 }

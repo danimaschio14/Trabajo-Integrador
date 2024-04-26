@@ -1,4 +1,4 @@
-import { Body, ParseIntPipe, Get, Param,Controller, Delete, Post, Patch } from "@nestjs/common";
+import { Body, ParseIntPipe, Get, Param,Controller, Delete, Post, Patch, HttpException, HttpStatus } from "@nestjs/common";
 import { CreatUserDto } from "src/dto/create-user.dto";
 import { UpdateUserDto } from "src/dto/update-user.dto";
 import { UserService } from "src/service/user.service";
@@ -14,7 +14,11 @@ export class UserController {
 
     @Get(":id")
     getUser(@Param("id",ParseIntPipe) id: number){
-        return this.userService.getUser(id);
+        let user = this.userService.getUser(id);
+        if (!user) {
+            return new HttpException("user not found", HttpStatus.NOT_FOUND)
+          }
+        return user
     }
     
     @Post()

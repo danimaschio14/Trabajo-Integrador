@@ -11,8 +11,7 @@ import { UserStatus } from "src/enum/user-status";
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
-
-
+  
   async obtenerUsuarioPorNombreDeUsuario(name: string,): Promise<User> {
     const usuario: User = await this.userRepository.findOne({
       where: {
@@ -41,10 +40,6 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { id }
     });
-    if (!user) {
-      return new HttpException("user not found", HttpStatus.NOT_FOUND)
-    }
-
     return user
 
   }

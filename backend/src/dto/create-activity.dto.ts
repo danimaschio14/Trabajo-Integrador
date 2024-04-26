@@ -1,10 +1,10 @@
-import { IsNumber, IsNumberString, IsString, MinLength, isNumber } from "class-validator"
+import { IsNumberString, IsString, MinLength } from "class-validator"
 
+import { ActivityPriority } from "src/enum/activity.priority"
 import { ActivityType } from "src/enum/activity.type"
 import { Transform } from "class-transformer"
-import { constructUsing } from "@automapper/core"
 
-export class CreateActivityDto{
+export class CreateActivityDto2{
 
 
     @Transform(({value})=>value.trim()) 
@@ -15,6 +15,9 @@ export class CreateActivityDto{
     @Transform(({value})=>value.trim())
     @IsString()
     type : ActivityType
+
+    @IsString()
+    priority : ActivityPriority
 
     @IsNumberString()
     userId : number
