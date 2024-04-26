@@ -7,7 +7,6 @@ import { UserStatus } from "src/enum/user-status"
 export class CreatUserDto {
     
     @Transform(({value})=>value.trim())
-    
     @MinLength(2)
     @IsString()	
     name:string

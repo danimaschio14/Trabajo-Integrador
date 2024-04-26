@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as bcryptjs from 'bcryptjs';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,9 +26,11 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new BadRequestException('Invalid username')
+      throw new UnauthorizedException(
+        'There is no user with that username',
+      );
     }
-
+  
     const correctPassword: boolean = bcrypt.compareSync(loginDto.password, user.password);
 
     if (!correctPassword) {

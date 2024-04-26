@@ -1,14 +1,20 @@
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { ActivityType } from "src/enum/activity.type";
+import { Expose } from "class-transformer";
 import { Registry } from "./registry.entity";
 import { User } from "./user.entity";
 import { register } from "module";
-import { Expose } from "class-transformer";
 
 @Entity('activity')
 export class Activity{
  
+    constructor(name: string, type : ActivityType, user: User){
+        this.name = name
+        this.type = type
+        this.user = user
+    }
+    
     @PrimaryGeneratedColumn()
     id: number;
      

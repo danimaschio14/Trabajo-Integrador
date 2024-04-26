@@ -70,12 +70,6 @@ export class UserService {
         status: UserStatus.ACTIVE,
       },
     });
-
-    if (!user) {
-      throw new UnauthorizedException(
-        'There is no user with that username',
-      );
-    }
     return user;
   }
 } 

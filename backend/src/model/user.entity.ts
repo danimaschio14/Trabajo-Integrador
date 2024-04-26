@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
 import { Exclude, Expose } from "class-transformer";
+
+import { Activity } from "./activity.entity";
 import { UserRole } from "src/enum/user-role";
 import { UserStatus } from "src/enum/user-status";
-import { Activity } from "./activity.entity";
 
 @Entity('user')
 export class User {
