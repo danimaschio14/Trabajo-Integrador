@@ -9,8 +9,9 @@ import { User } from "./user.entity";
 @Entity('record')
 export class ActivityRecord {
 
-    constructor(priority : ActivityPriority, date : Date, user : User , activity : Activity){
+    constructor(priority : ActivityPriority, status: ActivityStatus, date : Date, user : User , activity : Activity){
         this.priority = priority
+        this.status = status
         this.date = date
         this.user = user
         this.activity = activity
@@ -22,7 +23,7 @@ export class ActivityRecord {
     @Column()
     description : string
   
-    @Column({ type: 'enum', enum: ActivityStatus, default: ActivityStatus.CREATED})
+    @Column({ type: 'enum', enum: ActivityStatus})
     status : ActivityStatus
     
     @Column({ type: 'enum', enum: ActivityPriority})

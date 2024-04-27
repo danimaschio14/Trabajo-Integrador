@@ -40,8 +40,8 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { id }
     });
-    return user
 
+    return user
   }
 
   async deleteUser(id: number) {

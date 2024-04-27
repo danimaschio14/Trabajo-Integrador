@@ -5,7 +5,7 @@ import { ActivityStatus } from "src/enum/activity.status"
 
 export class CreateRecordDto{
 
-    constructor(status : string, priority : string, description : string, userId : number, activityId : number ){
+    constructor(status : ActivityStatus, priority : ActivityPriority, description : string, userId : number, activityId : number ){
         this.status = status
         this.priority = priority
         this.description = description
@@ -14,10 +14,10 @@ export class CreateRecordDto{
     }
     
     @IsEnum(ActivityStatus)
-    status : string
+    status : ActivityStatus
 
     @IsEnum(ActivityPriority)
-    priority : string
+    priority : ActivityPriority
    
     @IsString()
     description : string

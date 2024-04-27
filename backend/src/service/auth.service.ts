@@ -19,11 +19,12 @@ export class AuthService {
   ) { }
 
   async login(loginDto: LoginDto) {
-    const user: User = await this.userepo.findOne({
-      where: {
-        email: loginDto.email,
-      },
-    });
+    // const user: User = await this.userepo.findOne({
+    //   where: {
+    //     email: loginDto.email,
+    //   },
+    // });
+    const user = await this.usuariosService.findOneByEmail(loginDto.email)
 
     if (!user) {
       throw new UnauthorizedException(
@@ -34,7 +35,7 @@ export class AuthService {
     const correctPassword: boolean = bcrypt.compareSync(loginDto.password, user.password);
 
     if (!correctPassword) {
-      throw new BadRequestException('correct key');
+      throw new BadRequestException('Invalid password');
     }
 
     const token: string = this.jwtService.sign({

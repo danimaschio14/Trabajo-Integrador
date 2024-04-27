@@ -1,5 +1,5 @@
 import { Activity } from 'src/model/activity.entity';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,8 +19,8 @@ import { ActivityPriority } from 'src/enum/activity.priority';
 export class ActivityService {
   constructor(
     @InjectRepository(Activity) private activiyRepository: Repository<Activity>,
-    private userService: UserService,
-    private recordService : ActivityRecordService
+    @Inject(forwardRef(() => UserService)) private userService: UserService,
+    @Inject(forwardRef(() => ActivityRecordService)) private recordService : ActivityRecordService
   ) {}
 
   async createActivity(createActivityDto: CreateActivityDto, user: User) {
@@ -38,15 +38,12 @@ export class ActivityService {
     async createActivity2 ( activityDto: CreateActivityDto2) {
     const user = await this.userService.findOneById(activityDto.userId)
     const activity = await this.activiyRepository.save(new Activity (activityDto.name, activityDto.type, user))
-    
-    console.log(activity)
-    
+        
     //TODO: En record Created, el userID debe ser del admin que generó la actividad, según jwt login
     let recordDtoCreated = new CreateRecordDto(ActivityStatus.CREATED, ActivityPriority.UNDEFINED, 'INICIO DE ACTIVIDAD', activityDto.userId, activity.id )
-    let recordDtoPending = new CreateRecordDto(ActivityStatus.PENDING, activityDto.priority, 'ASIGNADA', activityDto.userId, activity.id )
     await this.recordService.createRecord(recordDtoCreated)
+    let recordDtoPending = new CreateRecordDto(ActivityStatus.PENDING, activityDto.priority, 'ASIGNADA', activityDto.userId, activity.id )
     await this.recordService.createRecord(recordDtoPending)
-
     return activity
 }
 
