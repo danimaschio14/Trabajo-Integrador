@@ -8,17 +8,17 @@ export class Criteria {
 
     @ApiProperty({ required: false, nullable: true })
     @IsOptional()
-    @IsNumber()
+    //@IsNumber()
     userId : number
 
-    @ApiProperty({ required: false, nullable: true })
+    //@ApiProperty({ required: false, nullable: true })
     @IsOptional()
-    @IsNumber()
+    //@IsNumber()
     activityId : number
 
-    @ApiProperty({ required: false, nullable: true })
+    //@ApiProperty({ required: false, nullable: true })
     @IsOptional()
-    @IsString()
-    activityName : string
+    //@IsString()
+    activityTitle : string
     
 }

@@ -37,7 +37,6 @@ export class ActivityRecordService {
             user,
             activity
         )
-        console.log(registry)
         return this.activityRecordRepository.save(registry)
     }
 

@@ -1,6 +1,9 @@
-import { Body, ParseIntPipe, Get, Param,Controller, Delete, Post, Patch, HttpException, HttpStatus } from "@nestjs/common";
+import { Body, ParseIntPipe, Get, Param,Controller, Delete, Post, Patch, HttpException, HttpStatus, UseGuards } from "@nestjs/common";
+import { Roles } from "src/decorators/roles.decorator";
 import { CreatUserDto } from "src/dto/create-user.dto";
 import { UpdateUserDto } from "src/dto/update-user.dto";
+import { UserRole } from "src/enum/user-role";
+import { AuthGuard } from "src/guards/auth.guard";
 import { UserService } from "src/service/user.service";
 
 @Controller("user")
@@ -20,17 +23,23 @@ export class UserController {
           }
         return user
     }
-    
+
+    @Roles([UserRole.ADMIN])
+    @UseGuards(AuthGuard)
     @Post()
     createUser(@Body() usuario :CreatUserDto){
         return this.userService.creatUser(usuario)
     }
     
+    @Roles([UserRole.ADMIN])
+    @UseGuards(AuthGuard)
     @Delete(":id")
     deleteUser(@Param("id",ParseIntPipe) id: number){
         return this.userService.deleteUser(id)
     }
 
+    @Roles([UserRole.ADMIN])
+    @UseGuards(AuthGuard)
     @Patch(":id")
     updateUser(@Param("id",ParseIntPipe) id: number, @Body()user:UpdateUserDto){
         return this.userService.updateUser(id,user)
