@@ -6,13 +6,13 @@ import { ActivityRecord } from "src/model/activity.record.entity";
 import { Repository } from "typeorm";
 import { UserService } from "./user.service";
 import { ActivityService } from "./activity.service";
-import { ActivityStatus } from "src/enum/activity.status";
+
 
 @Injectable()
 export class ActivityRecordService {
     constructor(@InjectRepository(ActivityRecord) private activityRecordRepository : Repository<ActivityRecord>,
         @Inject(forwardRef(() => UserService)) private userService : UserService,
-        @Inject(forwardRef(() => ActivityService)) private activityService : ActivityService
+        @Inject(forwardRef(() => ActivityService)) private activityService : ActivityService,
     ) {}
     
     async createRecord(dto: CreateRecordDto) {
@@ -40,4 +40,29 @@ export class ActivityRecordService {
         return this.activityRecordRepository.save(registry)
     }
 
+    async getRecordByID(activityId: number): Promise<ActivityRecord[]> {
+        try {
+          const records = await this.activityRecordRepository.find({
+            where: { activity: { id: activityId } },
+          });
+          return records;
+        } catch (error) {
+          // Handle any errors (e.g., invalid activity ID)
+          throw new Error('Error fetching records for activity');
+        }
+      }
+
+      async getRecordsByActivityIdAsc(activityId: number): Promise<ActivityRecord[]> {
+        try {
+          const records = await this.activityRecordRepository.find({
+            where: { activity: { id: activityId } },
+            order: { date: 'DESC' }, 
+          });
+          return records;
+        } catch (error) {
+          throw new Error('Error fetching records for activity');
+        }
+      }
+
 }
+

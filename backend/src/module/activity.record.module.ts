@@ -10,9 +10,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "src/model/user.entity";
 import { UserModule } from "./user.module";
 import { UserService } from "src/service/user.service";
+import { RecordController } from "src/controller/activity.record.controller";
 
 @Module({
-    controllers: [],
+    controllers: [RecordController],
     imports: [UserModule,
         forwardRef(() => ActivityModule),
         TypeOrmModule.forFeature([ActivityRecord, Activity, User])],

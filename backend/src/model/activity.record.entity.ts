@@ -39,3 +39,5 @@ export class ActivityRecord {
     @ManyToOne( () => Activity, activity =>  activity.records)
     activity : Activity
 } 
+
+// generame el service con typescrip de la entidad ActivityRecord con un metodo getRecordByID que se reciba el id de una actividad
