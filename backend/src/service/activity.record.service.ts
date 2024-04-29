@@ -3,9 +3,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreateRecordDto } from "src/dto/create-record.dto";
 import { ActivityPriority } from "src/enum/activity.priority";
 import { ActivityRecord } from "src/model/activity.record.entity";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { UserService } from "./user.service";
 import { ActivityService } from "./activity.service";
+import { Activity } from "src/model/activity.entity";
+import { ActivityStatus } from "src/enum/activity.status";
 
 
 @Injectable()
@@ -33,6 +35,7 @@ export class ActivityRecordService {
         let registry = new ActivityRecord(
             dto.priority,
             dto.status,
+            dto.description,
             date,
             user,
             activity
@@ -40,29 +43,32 @@ export class ActivityRecordService {
         return this.activityRecordRepository.save(registry)
     }
 
-    async getRecordByID(activityId: number): Promise<ActivityRecord[]> {
+      async getRecordsByActivityId(activityId: number, order): Promise<ActivityRecord[]> {
         try {
           const records = await this.activityRecordRepository.find({
             where: { activity: { id: activityId } },
-          });
-          return records;
-        } catch (error) {
-          // Handle any errors (e.g., invalid activity ID)
-          throw new Error('Error fetching records for activity');
-        }
-      }
-
-      async getRecordsByActivityIdAsc(activityId: number): Promise<ActivityRecord[]> {
-        try {
-          const records = await this.activityRecordRepository.find({
-            where: { activity: { id: activityId } },
-            order: { date: 'DESC' }, 
+            order: { id: order },
+            relations: ['user']
           });
           return records;
         } catch (error) {
           throw new Error('Error fetching records for activity');
         }
       }
+      
+      async getLastRecord(activity: Activity) : Promise<ActivityRecord> {
+        return await this.activityRecordRepository.findOne(
+            { 
+                where : { 
+                            activity: activity,
+                            status: Not(ActivityStatus.UPDATE)
+                        },
+                order : {
+                    id : "DESC"
+                },
+                relations: ['user', 'activity']
+            })
+    }
 
 }
 

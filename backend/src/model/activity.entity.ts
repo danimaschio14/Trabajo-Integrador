@@ -8,10 +8,9 @@ import { User } from "./user.entity";
 @Entity('activity')
 export class Activity{
     
-    constructor( title : string , type : ActivityType, user : User ){
+    constructor( title : string , type : ActivityType){
         this.title = title
         this.type = type
-        this.user = user
     }
     
     @PrimaryGeneratedColumn()
@@ -20,14 +19,10 @@ export class Activity{
     @Column()
     title : string
 
-    @Column()
+    @Column({ type: 'enum', enum: ActivityType})
     type : ActivityType
-
-    @ManyToOne(()=>User)
-    @JoinColumn({name:'id_usuario'})
-    user:User;
         
-    @Expose()
-    @OneToMany( () => ActivityRecord, registry => registry.activity)
+    //@Expose()
+    @OneToMany( () => ActivityRecord, record => record.activity)
     records : ActivityRecord[]
 }

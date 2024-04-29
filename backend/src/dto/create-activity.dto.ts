@@ -1,4 +1,4 @@
-import { IsNumber, IsNumberString, IsString, MinLength } from "class-validator"
+import { IsEnum, IsNumber, IsNumberString, IsString, MinLength } from "class-validator"
 
 import { ActivityPriority } from "src/enum/activity.priority"
 import { ActivityType } from "src/enum/activity.type"
@@ -9,12 +9,12 @@ export class CreateActivityDto2{
 
     @MinLength(5)   
     @IsString()
-    name : string
+    title : string
     
-    @IsString()
+    @IsEnum(ActivityType)
     type : ActivityType
 
-    @IsString()
+    @IsEnum(ActivityPriority)
     priority : ActivityPriority
 
     @IsNumber()

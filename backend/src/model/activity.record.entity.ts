@@ -6,12 +6,13 @@ import { ActivityStatus } from "src/enum/activity.status";
 import { Expose } from "class-transformer";
 import { User } from "./user.entity";
 
-@Entity('record')
+@Entity('activity-record')
 export class ActivityRecord {
 
-    constructor(priority : ActivityPriority, status: ActivityStatus, date : Date, user : User , activity : Activity){
+    constructor(priority : ActivityPriority, status: ActivityStatus, description: string, date : Date, user : User , activity : Activity){
         this.priority = priority
-        this.status = status
+        this.status = status,
+        this.description = description
         this.date = date
         this.user = user
         this.activity = activity
@@ -33,11 +34,11 @@ export class ActivityRecord {
     date : Date
 
     @Expose()
-    @ManyToOne( () => User)
+    @ManyToOne(type => User, user => user.records, { eager: false })
+    @JoinColumn() 
     user : User
 
-    @ManyToOne( () => Activity, activity =>  activity.records)
+    @ManyToOne(type => Activity, activity => activity.records, { eager: false })
+    @JoinColumn() 
     activity : Activity
 } 
-
-// generame el service con typescrip de la entidad ActivityRecord con un metodo getRecordByID que se reciba el id de una actividad

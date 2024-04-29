@@ -1,5 +1,5 @@
 import { Activity } from 'src/model/activity.entity';
-import { BadRequestException, Inject, Injectable, forwardRef } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, UnauthorizedException, forwardRef } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,6 +15,7 @@ import { CreateRecordDto } from 'src/dto/create-record.dto';
 import { ActivityPriority } from 'src/enum/activity.priority';
 import { UpdateActivityDto } from 'src/dto/update-activity.dto';
 import { ActivityRecord } from 'src/model/activity.record.entity';
+import { ActivityType } from 'src/enum/activity.type';
 
 
 @Injectable()
@@ -33,42 +34,34 @@ export class ActivityService {
     //   createActivityDto.user,
     // );
     //activity.user = user;
-    activity.user = user;
     await this.activiyRepository.save(activity);
   }
 
-    async createActivity2 ( activityDto: CreateActivityDto2) {
-    const user = await this.userService.findOneById(activityDto.userId)
-    const activity = await this.activiyRepository.save(new Activity (activityDto.name, activityDto.type, user))
-        
-    //TODO: En record Created, el userID debe ser del admin que generó la actividad, según jwt login
-    let recordDtoCreated = new CreateRecordDto(ActivityStatus.CREATED, ActivityPriority.NOT_ASIGNED, 'INICIO DE ACTIVIDAD', activityDto.userId, activity.id )
+    async createActivity2 ( activityDto: CreateActivityDto2, userAdminId: number) {
+    const activity = await this.activiyRepository.save(new Activity (activityDto.title, activityDto.type))
+
+    const recordDtoCreated = new CreateRecordDto(ActivityStatus.CREATED, ActivityPriority.NOT_ASIGNED, "INICIO DE ACTIVIDAD", userAdminId, activity.id)
     await this.recordService.createRecord(recordDtoCreated)
-    let recordDtoPending = new CreateRecordDto(ActivityStatus.PENDING, activityDto.priority, 'ASIGNADA', activityDto.userId, activity.id )
+    const recordDtoPending = new CreateRecordDto(ActivityStatus.PENDING, activityDto.priority, "", activityDto.userId, activity.id)
     await this.recordService.createRecord(recordDtoPending)
     return activity
 }
 
   async getActivity(user: User): Promise<Activity[]> {
-    const role:UserRole =  user.role;
-
-    const consulta = this.activiyRepository
-    .createQueryBuilder('activity')
-    .innerJoin('activity.user', 'user');
-
-    if(role === UserRole.EMPLOYEE){
-        consulta.where('activity.status = :status',{
-            estado: ActivityStatus.PENDING
-        }).andWhere('user.id = :idUser',{
-            idUsuario:user.id
-        });
+    let activities = await this.activiyRepository.find();
+    let index = 0;
+    for (const activity of [...activities]) {
+      const lastRecord = await this.recordService.getLastRecord(activity);
+      if(lastRecord.user.id != user.id && user.role == UserRole.EMPLOYEE){
+        activities.splice(index, 1);
+      } else {
+        ++index;
+      }
     }
-
-    return await consulta.getMany();
+    return activities
   }
 
-a
-async getActivityById( id : number ) {
+async getActivityById( id : number ) :Promise<Activity>{
     const activity = await this.activiyRepository.findOne({
         where : {
             id
@@ -83,19 +76,70 @@ async getActivityById( id : number ) {
       return activity;
 }
 
+async updateActivity (id : number, dto : UpdateActivityDto, userId: number){
+	let activity = await this.getActivityById(id)
+	let lastRecord:ActivityRecord = await this.recordService.getLastRecord(activity);
+	const user:User = await this.userService.getUser(userId);
+	if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id || lastRecord.status != ActivityStatus.PENDING))
+		throw new UnauthorizedException("No esta asignado a esta actividad o la actividad no esta en estado PENDING");
 
-async updateActivity (id : number, dto : UpdateActivityDto){
-  let activity = await this.getActivityById(id)
-  if (dto.title || dto.type ){
-    await this.activiyRepository.update({id},dto)
-  } 
-  else {
-    //find last record 
-    //let record = new ActivityRecord( dto.priority, dto.status : dto.status ? null , )
-    //await this.recordService.createRecord(new ActivityRecord( dto.priority, dto.status ))
-  }
-  //record - 
-  return null // UpdateActivityResponseDto con cambios y quien lo hizo?
+	if (dto.title || dto.type){
+		await this.createRecordActivityUpdate(activity, dto.title, dto.type, user.id);
+	}
+
+	if (dto.priority || dto.status || dto.userId){
+		await this.createRecordUpdate(dto, lastRecord, user.id);
+	}
+
+	return "Se han actualizado los campos";
+}
+
+async createRecordActivityUpdate (activity : Activity, title : string, type : ActivityType, userId: number){
+	let msg:string = "";
+	if(title && title != activity.title ){
+		msg += "CAMBIO DE TITULO '" + activity.title + "', ";
+		activity.title = title
+	}
+
+	if(type && type != activity.type ){
+		msg += "CAMBIO DE TIPO '" + activity.type + "', ";
+		activity.type = type
+	}
+
+	msg = msg.slice(0, msg.lastIndexOf(", "));
+
+	if(msg){
+		await this.activiyRepository.update(activity.id, activity)
+		const changeRecord = new CreateRecordDto(ActivityStatus.UPDATE, ActivityPriority.NOT_ASIGNED, msg, userId, activity.id)
+		await this.recordService.createRecord(changeRecord)
+	}
+}
+
+async createRecordUpdate(dto : UpdateActivityDto, lastRecord:ActivityRecord, userId: number){
+	let msg:string = "";
+	let record = new CreateRecordDto(lastRecord.status, lastRecord.priority, "", lastRecord.user.id, lastRecord.activity.id)
+
+	if(dto.priority && dto.priority != lastRecord.priority){
+		msg += "CAMBIO DE PRIORIDAD, ";
+		record.priority = dto.priority;
+	}
+
+	if(dto.userId && dto.userId != lastRecord.user.id){
+		msg += "CAMBIO DE USUARIO, ";
+		record.userId = dto.userId;
+	}
+
+	if(dto.status && dto.status != lastRecord.status){
+		msg += "CAMBIO DE ESTADO, ";
+		record.status = dto.status;
+	}
+
+	msg = msg.slice(0, msg.lastIndexOf(", "));
+	if(msg){
+		const changeRecord = new CreateRecordDto(ActivityStatus.UPDATE, ActivityPriority.NOT_ASIGNED, msg, userId, lastRecord.activity.id)
+		await this.recordService.createRecord(changeRecord)
+		await this.recordService.createRecord(record)
+	}
 }
 
 async getActivityByCriteria( criteria : Criteria ) {
@@ -113,10 +157,6 @@ async getActivityByCriteria( criteria : Criteria ) {
 
 }
 
-private async getLastRecord( activityId : number){
-  //buscar el ultimo registro y devolverlo
-}
-
 // //TODO : PENSAR EN DEVOLVER LISTA DE ACTIVIDADES DEL ID USER
 private async getActivityByUserId( id : number ) {
     let user = await this.userService.findOneById(id)
@@ -124,7 +164,7 @@ private async getActivityByUserId( id : number ) {
         throw new BadRequestException('User with id: ' + id + ' not found in db')
       }
     let activities = []
-    activities = await this.activiyRepository.findBy({ user: user })
+    //activities = await this.activiyRepository.findBy({ user: user })
 
     if (!activities.length) {
         throw new BadRequestException(
