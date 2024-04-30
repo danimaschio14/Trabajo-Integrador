@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Roles } from 'src/decorators/roles.decorator';
-import { CreateActivityDto } from 'src/dto/create-actividad.dto';
 import { CreateActivityDto2 } from 'src/dto/create-activity.dto';
 import { UpdateActivityDto } from 'src/dto/update-activity.dto';
 import { ActivityStatus } from 'src/enum/activity.status';
@@ -42,18 +41,18 @@ export class ActivityController {
         return this.activityService.getActivityById(id)
     }
 
-    @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
-    @UseGuards(AuthGuard)
-    @Get("criteria")
-    getActivitiesByCriteria (@Body() criteria : Criteria ) {
-        return this.activityService.getActivityByCriteria(criteria)
-    }
+    // @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
+    // @UseGuards(AuthGuard)
+    // @Get("criteria")
+    // getActivitiesByCriteria (@Body() criteria : Criteria ) {
+    //     return this.activityService.getActivityByCriteria(criteria)
+    // }
 
     @Roles([UserRole.ADMIN])
     @UseGuards(AuthGuard)
     @Post()
     createActivity2 (@Req()request : Request, @Body() activityDto : CreateActivityDto2){
-        const userAdminId = request['user'].id;
+        const userAdminId = request['user'].id
         return this.activityService.createActivity2(activityDto, userAdminId)
     }
 
@@ -65,7 +64,7 @@ export class ActivityController {
       const role = request["user"].role
       
       if(role == UserRole.EMPLOYEE && this.checksEmployee(updateActivityDto))
-        throw new UnauthorizedException("Solo tienes los permisos para modificar el estado por el valor FINISHED o CANCELED");
+        throw new UnauthorizedException("Solo tienes los permisos para modificar el estado por el valor IN PROGRESS, FINISHED o CANCELED");
 
       return this.activityService.updateActivity(id, updateActivityDto, userId)
     }

@@ -73,7 +73,7 @@ async getActivityById( id : number ) :Promise<Activity>{
           'There is no activity with id: ' + id,
         );
       }
-      
+
       return activity;
 }
 
@@ -143,6 +143,7 @@ async createRecordUpdate(dto : UpdateActivityDto, lastRecord:ActivityRecord, use
 	}
 }
 
+// NO ESTÁ SIENDO UTILIZADO.
 async getActivityByCriteria( criteria : Criteria ) {
   let result
   if (criteria.activityId){
@@ -155,10 +156,8 @@ async getActivityByCriteria( criteria : Criteria ) {
       result = await this.getActivityByTitle(criteria.activityTitle)
   } 
   return result
-
 }
 
-// //TODO : PENSAR EN DEVOLVER LISTA DE ACTIVIDADES DEL ID USER
 private async getActivityByUserId( id : number ) {
     let user = await this.userService.findOneById(id)
     if (!user) {
