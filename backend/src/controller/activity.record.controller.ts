@@ -1,6 +1,8 @@
-import { Controller, Get, Param, Req } from "@nestjs/common";
+import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
+import { Roles } from "src/decorators/roles.decorator";
 import { ActivityStatus } from "src/enum/activity.status";
-import { Activity } from "src/model/activity.entity";
+import { UserRole } from "src/enum/user-role";
+import { AuthGuard } from "src/guards/auth.guard";
 import { ActivityRecordService } from "src/service/activity.record.service";
 import { ActivityService } from "src/service/activity.service";
 
@@ -28,14 +30,13 @@ export class RecordController {
 */
 
    // @ApiBearerAuth()
-  // @Roles([UserRole.ADMIN,UserRole.EMPLOYEE])
-  // @UseGuards(AuthGuard)
-  //@Get(':activityId')
+  @Roles([UserRole.ADMIN])
+  @UseGuards(AuthGuard)
   @Get(':activityId/:order')
   async getRecordsByActivityIdDesc(@Param('activityId') activityId: number, @Param('order') order?:string) {
     try {
-      if(order != "ASC")
-        order = "ASC"
+      // if(order != "ASC")
+      //   order = "ASC"
       let records = await this.activityRecordService.getRecordsByActivityId(activityId, order);
 
       const activity = await this.activityService.getActivityById(activityId);

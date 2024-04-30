@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 
 import { Repository } from "typeorm";
@@ -11,7 +11,7 @@ import { UserStatus } from "src/enum/user-status";
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
-  
+
   async obtenerUsuarioPorNombreDeUsuario(name: string,): Promise<User> {
     const usuario: User = await this.userRepository.findOne({
       where: {
@@ -45,9 +45,14 @@ export class UserService {
   }
 
   async deleteUser(id: number) {
-    const results = await this.userRepository.delete({ id })
-    if (results.affected === 0) {
-      return new HttpException("user not found", HttpStatus.NOT_FOUND)
+    let results
+    try {
+      results = await this.userRepository.delete({ id })
+      if (results.affected === 0) {
+        return new HttpException("user not found", HttpStatus.NOT_FOUND)
+      }
+    } catch (Exception) {
+      return new HttpException("User can't be delete. Have foreing key", HttpStatus.INTERNAL_SERVER_ERROR)
     }
     return results
   }

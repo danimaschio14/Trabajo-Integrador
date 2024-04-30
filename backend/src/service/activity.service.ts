@@ -73,6 +73,7 @@ async getActivityById( id : number ) :Promise<Activity>{
           'There is no activity with id: ' + id,
         );
       }
+      
       return activity;
 }
 

@@ -14,18 +14,18 @@ export class ActivityController {
     constructor(private activityService: ActivityService) {}
 
     // @ApiBearerAuth()
-    @Roles([UserRole.ADMIN])
-    @UseGuards(AuthGuard)
-    @Post()
-    async createActivity(
-      @Req() request: Request,
-      @Body() createActivityDto: CreateActivityDto,
-    ) {
-      await this.activityService.createActivity(
-        createActivityDto,
-        request['user'],
-      );
-    }
+    // @Roles([UserRole.ADMIN])
+    // @UseGuards(AuthGuard)
+    // @Post()
+    // async createActivity(
+    //   @Req() request: Request,
+    //   @Body() createActivityDto: CreateActivityDto,
+    // ) {
+    //   await this.activityService.createActivity(
+    //     createActivityDto,
+    //     request['user'],
+    //   );
+    // }
 
     // @ApiBearerAuth()
     @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
@@ -51,7 +51,7 @@ export class ActivityController {
 
     @Roles([UserRole.ADMIN])
     @UseGuards(AuthGuard)
-    @Post("create")
+    @Post()
     createActivity2 (@Req()request : Request, @Body() activityDto : CreateActivityDto2){
         const userAdminId = request['user'].id;
         return this.activityService.createActivity2(activityDto, userAdminId)

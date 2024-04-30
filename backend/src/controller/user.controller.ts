@@ -41,7 +41,7 @@ export class UserController {
     @Roles([UserRole.ADMIN])
     @UseGuards(AuthGuard)
     @Patch(":id")
-    updateUser(@Param("id",ParseIntPipe) id: number, @Body()user:UpdateUserDto){
+    updateUser(@Param("id",ParseIntPipe) id: number, @Body() user:UpdateUserDto){
         return this.userService.updateUser(id,user)
     }
 

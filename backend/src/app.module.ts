@@ -9,7 +9,7 @@ import { JwtModuleCustom } from './module/jwt.module';
 import { UserModule } from './module/user.module';
 
 @Module({
-  imports: [DbConnectionModule,UserModule,AuthModule, JwtModuleCustom, ActivityModule,ActivityRecordModule]
+  imports: [DbConnectionModule, UserModule, AuthModule, JwtModuleCustom, ActivityModule, ActivityRecordModule]
 })
 export class AppModule implements NestModule{
   configure(consumer: MiddlewareConsumer): void {
