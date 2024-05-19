@@ -189,4 +189,8 @@ private async getActivityByTitle( title : string ) {
       }
       return activity;
 } 
+
+getAllActivity(){
+  return this.activiyRepository.find()
+}
 }

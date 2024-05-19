@@ -1,0 +1,30 @@
+<app-base>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <span class="h3">Activities list</span>
+                 <!-- <button class="btn" routerLink='/create-empleado'>Agregar</button> -->
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let activity of activities">
+                        <td>{{activity.title}}</td>
+                        <td>{{activity.type}}</td>
+                        <!-- <td>
+                        <i class="fa-solid fa-user-pen fa-lg text-info" style="margin-right: 10px;" [routerLink]="['/edit-empleado/',empleado.id]"></i>
+                        <i (click)="deleteEmpleado(empleado.id)" class="fa-solid fa-trash fa-lg text-danger"></i>
+                        </td> -->
+                        
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    </app-base>

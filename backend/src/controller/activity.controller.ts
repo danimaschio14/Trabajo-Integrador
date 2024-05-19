@@ -26,6 +26,11 @@ export class ActivityController {
     //   );
     // }
 
+    @Get("activities")
+    getAllActivity(){
+        return this.activityService.getAllActivity()
+    }
+
     // @ApiBearerAuth()
     @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
     @UseGuards(AuthGuard)

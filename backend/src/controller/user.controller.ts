@@ -24,25 +24,43 @@ export class UserController {
         return user
     }
 
-    @Roles([UserRole.ADMIN])
-    @UseGuards(AuthGuard)
+    // @Roles([UserRole.ADMIN])
+    // @UseGuards(AuthGuard)
     @Post()
     createUser(@Body() usuario :CreatUserDto){
         return this.userService.creatUser(usuario)
     }
     
-    @Roles([UserRole.ADMIN])
-    @UseGuards(AuthGuard)
+    // @Roles([UserRole.ADMIN])
+    // @UseGuards(AuthGuard)
     @Delete(":id")
     deleteUser(@Param("id",ParseIntPipe) id: number){
         return this.userService.deleteUser(id)
     }
 
-    @Roles([UserRole.ADMIN])
-    @UseGuards(AuthGuard)
+    // @Roles([UserRole.ADMIN])
+    // @UseGuards(AuthGuard)
+    // @Patch(":id")
+    // updateUser(@Param("id",ParseIntPipe) id: number, @Body() user:UpdateUserDto){
+    //     return this.userService.updateUser(id,user)
+    // }
     @Patch(":id")
-    updateUser(@Param("id",ParseIntPipe) id: number, @Body() user:UpdateUserDto){
-        return this.userService.updateUser(id,user)
+    updateUser(@Param("id",ParseIntPipe) id: number, @Body() {name ,lastName,email,password,role,status}: CreatUserDto){
+       return this.userService.updateUser(id,{name ,lastName,email,password,role,status})
     }
+    
+
+//     @Post(':userId/toggle-status')
+//   async toggleUserStatus(@Param('userId') userId: number): Promise<User> {
+//     const user = await this.userService.findOne(userId);
+//     if (!user) {
+//       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+//     }
+
+//     // Cambia el estado de "activo" a "inactivo" o viceversa
+//     user.status = user.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+
+//     return this.userService.save(user);
+//   }
 
 }
