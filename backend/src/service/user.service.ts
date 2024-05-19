@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { User } from "src/model/user.entity";
 import { CreatUserDto } from "src/dto/create-user.dto";
 import { UpdateUserDto } from "src/dto/update-user.dto";
@@ -57,7 +58,20 @@ export class UserService {
     return results
   }
 
-  updateUser(id: number, usuario: UpdateUserDto) {
+  // updateUser(id: number, usuario: UpdateUserDto) {
+  //   this.userRepository.update({ id }, usuario)
+  //   return usuario
+  // }
+
+  async updateUser(id: number,{ name, lastName, email, password, role, status }: CreatUserDto) {
+    const usuario:UpdateUserDto= {
+      name,
+      lastName,
+      email,
+      password: await bcryptjs.hash(password, 10),
+      role,
+      status
+    }
     this.userRepository.update({ id }, usuario)
     return usuario
   }
@@ -72,4 +86,18 @@ export class UserService {
     });
     return user;
   }
+
+  // async toggleUserStatus(id: number): Promise<User> {
+  //   const user = await this.userRepository.findOne({
+  //     where: { id }
+  //   });
+  //   if (!user) {
+  //     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  //   }
+
+  //   // Cambia el estado de "activo" a "inactivo" o viceversa
+  //   user.status = user.status === UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE;
+
+  //   return this.userRepository.save(user);
+  // }
 } 
