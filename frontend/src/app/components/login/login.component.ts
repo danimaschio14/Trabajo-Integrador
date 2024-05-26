@@ -10,7 +10,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import {ToastModule} from 'primeng/toast'
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RolesEnum } from '../../enums/roles.enum';
 
@@ -20,7 +20,7 @@ import { RolesEnum } from '../../enums/roles.enum';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule,RouterLink],
 })
 export class LoginComponent {
   form = new FormGroup({

@@ -1,8 +1,18 @@
-i{
+
+.pointer{
     cursor: pointer;
 }
 
-.btn{
-    background-color: aquamarine;
-    float: right;
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+mat-label{
+    color: #ffc107;
+}
+
+.btn2{
+  float: right;
+  margin-bottom: 10px;
 }

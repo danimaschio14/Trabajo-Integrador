@@ -1,13 +1,24 @@
 footer {
-  height: 20vh;
-  width: 100%;
-  background-color: aquamarine;
-  position: fixed;
-  bottom: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+i{
+  margin-bottom: 10px;
 }
 
-@media only screen and (min-height: 400px) {
+h5 {
+  font-size: 1.2em;
+}
+
+
+@media only screen and (min-height: 800px) {
   footer {
-    height: 10vh;
+    width: auto;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 30px;
+    padding: 35px 0px;
   }
 }
+

@@ -1,43 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../base/base.component';
-import { EmpleadoService } from '../../services/empleado.service';
-import { NgFor } from '@angular/common';
-import { CardModule } from 'primeng/card';
-import { RouterLink } from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatIconModule} from '@angular/material/icon';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { BaseComponent } from '../base/base.component';
+import { RouterLink } from '@angular/router';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { UsuarioService } from '../../services/usuario.service';
 
 
 @Component({
   selector: 'app-lista-usuario',
   standalone: true,
-  imports: [BaseComponent,CardModule,NgFor,RouterLink,ToastModule],
+  imports: [BaseComponent,MatFormFieldModule, MatInputModule,MatTableModule,MatPaginatorModule,
+    MatSortModule,MatIconModule,RouterLink,MatTooltipModule],
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.scss'
 })
 export class ListaUsuarioComponent implements OnInit {
-  empleados: any[]=[];
-  constructor(
-    private empreadoService:EmpleadoService,
-    private messageService: MessageService
-  ){}
+  empleados: any[]=[];  
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit(): void {
-    this.gerEmpleados()
+
+    constructor(
+      private usuarioService:UsuarioService,
+      private messageService: MessageService
+    ){}
+
+
+
+  displayedColumns: string[] = ['name', 'lastName', 'email', 'role', 'status', 'options'];
+  dataSource = new MatTableDataSource<any>;
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+  
+  ngOnInit(): void {
+    this.getEmpleados()
+      }
 
-  gerEmpleados(){
-    this.empreadoService.getAllUsers().subscribe(data => {
+  applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+  } 
+  getEmpleados(){
+    this.usuarioService.getAllUsers().subscribe(data => {
       data.forEach((element: any) =>{      
         this.empleados.push({element,...element})
+        this.dataSource=new MatTableDataSource(this.empleados)
+        this.ngAfterViewInit()
       }
     )
     })
   }
 
   deleteEmpleado(idUsuario: number) {
-    this.empreadoService.deleteUser(idUsuario).subscribe(() => {
-      this.empleados=[], this.gerEmpleados()
+    this.usuarioService.deleteUser(idUsuario).subscribe(() => {
+      this.empleados=[], this.getEmpleados()
       this.messageService.add({
         severity: 'info', // Puedes usar 'success', 'info', 'warn' o 'error'
         summary: 'Usuario eliminado con éxito',
@@ -46,5 +72,4 @@ export class ListaUsuarioComponent implements OnInit {
      
     });
   }
-
 }
