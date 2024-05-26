@@ -1,20 +1,23 @@
 <div id="inicio-de-sesion">
   <form [formGroup]="form">
     <div class="titulo">
-      <img class="logo" src="../../../assets/img/llave.png" alt="img clave">
        <h1>Inicio de sesión</h1>
     </div>
     <div class="contenedor-input">
       <input id="nombre-usuario" pInputText type="text" formControlName="nombreUsuario" placeholder="Usuario" />
+      <i class="fa-solid fa-user" style="color: #ffffff;"></i>
     </div>
     <div class="contenedor-input">
       <input id="clave" pInputText type="password" formControlName="clave" placeholder="Contraseña" />
+      <i class="fa-solid fa-lock" style="color: #fcfcfd;"></i>
     </div>
-    <!-- <div class="contenedor-input">
-      <label for="clave">Clave: </label>
-      <p-password id="clave" formControlName="clave"></p-password>
-    </div> -->
-    <p-button label="Confirmar" (onClick)="login()"></p-button>
+    <button class="btn" (click)="login()">Confirmar</button>
+    <div class="register-link">
+      <p>Don´t have a account?
+        <a [routerLink]="['/create-empleado']">Register</a>
+      </p>
+
+    </div>
   </form>
 </div>
 <p-toast></p-toast>

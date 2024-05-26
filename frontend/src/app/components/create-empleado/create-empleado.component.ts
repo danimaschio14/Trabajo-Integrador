@@ -1,20 +1,23 @@
 import { Component,OnInit} from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmpleadoService } from '../../services/empleado.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { UsuarioService } from '../../services/usuario.service';
+import { RolesEnum } from '../../enums/roles.enum';
+import { UserStatus } from '../../enums/status.enum';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { PrincipioComponent } from '../principio/principio.component';
 
 
 
 @Component({
   selector: 'app-create-empleado',
   standalone: true,
-  imports: [BaseComponent,ReactiveFormsModule,RouterLink,NgIf,ToastModule],
+  imports: [PrincipioComponent, BaseComponent,ReactiveFormsModule,RouterLink,NgIf,ToastModule],
   templateUrl: './create-empleado.component.html',
-  styleUrls: ['./create-empleado.component.scss']
+  styleUrls: ['./create-empleado.component.scss'],
 })
 
 export class CreateEmpleadoComponent implements OnInit{
@@ -26,7 +29,7 @@ export class CreateEmpleadoComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder, 
-    private empleadoService:EmpleadoService, 
+    private empleadoService:UsuarioService, 
     private router:Router,private aRoute: ActivatedRoute,
     private messageService: MessageService,
   
@@ -36,16 +39,15 @@ export class CreateEmpleadoComponent implements OnInit{
       lastName:["",Validators.required],
       email:["",Validators.required],
       password:["",Validators.required],
-      role:["",Validators.required],
-      status:["",Validators.required],
+      role:[RolesEnum.EMPLOYEE,Validators.required],
+      status:[UserStatus.INACTIVE,Validators.required],
     })
     this.id= this.aRoute.snapshot.paramMap.get('id');    
   }
   ngOnInit(): void {
-    this.editEmpleado()
   }
 
-  addEditEmpleado(){
+  addEmpleado(){
     this.submitted=true
 
     if (this.createEmpleado.invalid) {
@@ -54,26 +56,9 @@ export class CreateEmpleadoComponent implements OnInit{
 
     if (this.id===null) {
       this.agregarEmpleado();
-    }else{
-      this.editEmployee(this.id);
-    }
   }
-
-  editEmployee(id:string){
-    const idEmpleado : number= parseInt(id)
-    const empleado: any ={
-      name:this.createEmpleado.value.name,
-      lastName:this.createEmpleado.value.lastName,
-      email:this.createEmpleado.value.email,
-      password:this.createEmpleado.value.password,
-      role:this.createEmpleado.value.role,
-      status:this.createEmpleado.value.status,
-    }
-    this.empleadoService.editUser(idEmpleado,empleado).then(() => {
-      this.router.navigate(["usuarios"])  
-      });
   }
-
+ 
   agregarEmpleado(){
     const empleado: any ={
       name:this.createEmpleado.value.name,
@@ -83,37 +68,28 @@ export class CreateEmpleadoComponent implements OnInit{
       role:this.createEmpleado.value.role,
       status:this.createEmpleado.value.status,
     }
-    this.empleadoService.addUser(empleado).then(() => {
-      this.router.navigate(["usuarios"]),
+   
+  this.empleadoService.addUser(empleado).then(
+    () => {
+      this.router.navigate(['login']);
       this.messageService.add({
-        severity: 'success', // Puedes usar 'success', 'info', 'warn' o 'error'
+        severity: 'success',
         summary: 'Empleado agregado con éxito',
         detail: 'El empleado se ha registrado correctamente.',
       });
-      
-      });
-  }
-
-  editEmpleado(){
-    if(this.id!==null){
-      this.titulo="Editar Usuario"
-      const idEmpleado : number= parseInt(this.id)
-      this.empleadoService.getUser(idEmpleado).subscribe(data =>{
-        this.createEmpleado.setValue({
-          name : data["name"],
-          lastName : data["lastName"],
-          email : data["email"],
-          password: "",
-          role : data["role"],
-          status  :data["status"]
-        })
-      })
+    },
+    (error) => {
+      if (error.status === 400) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al agregar empleado',
+          detail: 'El servidor ha rechazado la solicitud. Verifica los datos ingresados o usuario ya existente .',
+        });
+      } else {
+        console.error('Error desconocido:', error);
+      }
     }
-  }
+  );
 
 }
-
-
-
-
-
+}
