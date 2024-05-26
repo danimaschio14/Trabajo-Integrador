@@ -10,6 +10,4 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './base.component.html',
   styleUrl: './base.component.scss'
 })
-export class BaseComponent {
-
-}
+export class BaseComponent {}

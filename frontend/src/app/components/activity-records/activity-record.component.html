@@ -1,0 +1,58 @@
+<p-button (click)="showDialog()" label="Show" />
+<p-dialog
+    header={{title}}
+    [modal]="true"
+    [draggable]="false"
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <div class="card border-0">
+    <div *ngFor="let r of records">
+      <p-panel [toggleable]="true" class="my-2" collapsed="true">
+        <ng-template pTemplate="content" >
+            <div class="flex align-items-center gap-2">
+                <p-avatar
+                    icon="pi pi-user"
+                    size="large"
+                    [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+                    shape="circle" />
+                <span style="font-weight: bold;">
+                  {{r.user.email}}
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" >
+          <ng-template [ngIf]="r.priority" [ngIfElse]="changue">
+            <ng-template [ngIf]="r.status === 'CREATED'">
+              <p-tag icon="pi pi-info-circle text-3xl" severity="success" value="Creado"/>
+            </ng-template>
+            <ng-template [ngIf]="r.status === 'PENDING'">
+              <p-tag icon="pi pi-info-circle text-3xl" severity="info" value="Pendiente"/>
+            </ng-template>
+            <ng-template [ngIf]="r.status === 'CANCELED'">
+              <p-tag icon="pi pi-info-circle text-3xl" severity="danger" value="Cancelado"/>
+            </ng-template>
+            <ng-template [ngIf]="r.status === 'IN PROGRESS'">
+              <p-tag icon="pi pi-info-circle text-3xl" severity="contrast" value="En progreso"/>
+            </ng-template>
+          </ng-template>
+          <ng-template #changue>
+            <p-tag icon="pi pi-info-circle text-3xl" severity="warning" value={{r.description}}/>
+          </ng-template>
+        </ng-template>
+        <ng-template [ngIf]="r.priority">
+          <ng-template pTemplate="footer">
+              <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+                  <span class="p-text-secondary">
+                      {{r.date}}
+                  </span>
+              </div>
+            </ng-template>
+          </ng-template>
+      </p-panel>
+      <br/>
+    </div>
+  </div>
+</p-dialog>
+
+
