@@ -2,26 +2,22 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-body">
-                <span class="h3">Activities list</span>
+                <span class="h3">Lista de Actividades</span>
                  <!-- <button class="btn" routerLink='/create-empleado'>Agregar</button> -->
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Title</th>
-                        <th>Type</th>
+                        <th>Titulo</th>
+                        <th>Tipo</th>
+                        <th>Mostrar records</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let activity of activities">
                         <td>{{activity.title}}</td>
                         <td>{{activity.type}}</td>
-                        <!-- <td>
-                        <i class="fa-solid fa-user-pen fa-lg text-info" style="margin-right: 10px;" [routerLink]="['/edit-empleado/',empleado.id]"></i>
-                        <i (click)="deleteEmpleado(empleado.id)" class="fa-solid fa-trash fa-lg text-danger"></i>
-                        </td> -->
-                        
+                        <td><dialog-record [activityId]=activity.id /></td>
                       </tr>
-                     
                     </tbody>
                   </table>
             </div>

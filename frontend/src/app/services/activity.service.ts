@@ -6,17 +6,12 @@ import { Observable } from "rxjs";
     providedIn: 'root',
   })
   export class ActivityService {
-    private apiUrl = 'http://localhost:3000'; 
+    private apiUrl = 'http://localhost:3000';
     constructor(private http: HttpClient) {}
 
-
-
 getAllActivity():Observable<any> {
-        // Realiza una solicitud HTTP GET para obtener todos los usuarios
+        // Realiza una solicitud HTTP GET para obtener todas las actividades
         return this.http.get(`${this.apiUrl}/activity/activities`);
 }
-  
-
-
 
 }

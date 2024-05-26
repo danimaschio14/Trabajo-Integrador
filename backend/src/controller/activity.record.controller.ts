@@ -30,10 +30,10 @@ export class RecordController {
 */
 
    // @ApiBearerAuth()
-  @Roles([UserRole.ADMIN])
-  @UseGuards(AuthGuard)
+  //@Roles([UserRole.ADMIN])
+  //@UseGuards(AuthGuard)
   @Get(':activityId/:order')
-  async getRecordsByActivityIdDesc(@Param('activityId') activityId: number, @Param('order') order?:string) {
+  async getRecordsByActivityId(@Param('activityId') activityId: number, @Param('order') order?:string) {
     try {
       // if(order != "ASC")
       //   order = "ASC"
@@ -56,9 +56,9 @@ export class RecordController {
         //success: true, 
         title: activity.title,
         type: activity.type,
-		priority: lastRecord.priority,
-		status: lastRecord.status,
-		user: lastRecord.user,
+        priority: lastRecord.priority,
+        status: lastRecord.status,
+        user: lastRecord.user,
         records: records };
     } catch (error) {
       return { success: false, message: 'Error fetching records for activity' };
