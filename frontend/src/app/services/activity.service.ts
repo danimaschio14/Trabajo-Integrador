@@ -11,7 +11,12 @@ import { Observable } from "rxjs";
 
 getAllActivity():Observable<any> {
         // Realiza una solicitud HTTP GET para obtener todas las actividades
-        return this.http.get(`${this.apiUrl}/activity/activities`);
+        return this.http.get(`${this.apiUrl}/activity`);
 }
-
+updateStatus(id: Number, value: string):Observable<any> {
+  // Realiza una solicitud HTTP GET para obtener todas las actividades
+  return this.http.patch(`${this.apiUrl}/activity/${id}`,{
+    "status" : value
+  });
+}
 }

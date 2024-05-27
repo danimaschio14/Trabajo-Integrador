@@ -81,8 +81,10 @@ async updateActivity (id : number, dto : UpdateActivityDto, userId: number){
 	let activity = await this.getActivityById(id)
 	let lastRecord:ActivityRecord = await this.recordService.getLastRecord(activity);
 	const user:User = await this.userService.getUser(userId);
-	if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id || lastRecord.status != ActivityStatus.PENDING))
-		throw new UnauthorizedException("No esta asignado a esta actividad o la actividad no esta en estado PENDING");
+	/*if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id || lastRecord.status != ActivityStatus.PENDING))
+		throw new UnauthorizedException("No esta asignado a esta actividad o la actividad no esta en estado PENDING");*/
+	if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id))
+		throw new UnauthorizedException("No esta asignado a esta actividad");
 
 	if (dto.title || dto.type){
 		await this.createRecordActivityUpdate(activity, dto.title, dto.type, user.id);
@@ -92,7 +94,7 @@ async updateActivity (id : number, dto : UpdateActivityDto, userId: number){
 		await this.createRecordUpdate(dto, lastRecord, user.id);
 	}
 
-	return "Se han actualizado los campos";
+	return {msg:"Se han actualizado los campos"};
 }
 
 async createRecordActivityUpdate (activity : Activity, title : string, type : ActivityType, userId: number){

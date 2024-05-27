@@ -5,12 +5,16 @@ import { UpdateActivityDto } from 'src/dto/update-activity.dto';
 import { ActivityStatus } from 'src/enum/activity.status';
 import { UserRole } from 'src/enum/user-role';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { Criteria } from 'src/model/criteria.entity';
+//import { Criteria } from 'src/model/criteria.entity';
 import { ActivityService } from 'src/service/activity.service';
+import { ActivityRecordService } from "src/service/activity.record.service";
 
 @Controller('activity')
 export class ActivityController {
-    constructor(private activityService: ActivityService) {}
+    constructor(
+      private activityService: ActivityService,
+      private activityRecordService: ActivityRecordService
+    ) {}
 
     // @ApiBearerAuth()
     // @Roles([UserRole.ADMIN])
@@ -36,7 +40,15 @@ export class ActivityController {
     @UseGuards(AuthGuard)
     @Get()
     async getActividades(@Req()request : Request){
-      return await this.activityService.getActivity(request['user']); 
+      let activities = await this.activityService.getActivity(request['user']);
+      
+      for (let a of activities) {
+        const lastRecord = await this.activityRecordService.getLastRecord(a);
+        a["priority"] = lastRecord.priority
+        a["status"] = lastRecord.status
+        a["user"] = lastRecord.user.email
+      }
+      return activities
     }
 
     @Roles([UserRole.ADMIN])
@@ -84,9 +96,9 @@ export class ActivityController {
         return true;
       if(updateActivityDto.type)
         return true;
-      if(updateActivityDto.status != ActivityStatus.CANCELED && updateActivityDto.status != ActivityStatus.FINISHED && updateActivityDto.status != ActivityStatus.IN_PROGRESS)
+      /*if(updateActivityDto.status != ActivityStatus.CANCELED && updateActivityDto.status != ActivityStatus.FINISHED && updateActivityDto.status != ActivityStatus.IN_PROGRESS)
         return true;
-
+      */
       return false;
     }
 }

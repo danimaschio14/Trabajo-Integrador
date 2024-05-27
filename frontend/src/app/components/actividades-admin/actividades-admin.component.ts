@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-actividades-admin',
   standalone: true,
-  imports: [BaseComponent,ButtonModule, NgFor, DialogRecord],
+  imports: [BaseComponent, ButtonModule, NgFor, DialogRecord],
   templateUrl: './actividades-admin.component.html',
   styleUrl: './actividades-admin.component.scss'
 })
@@ -36,12 +36,12 @@ export class ActividadesAdminComponent implements OnInit {
   exportToCSV() {
     //  const csvData = this.papa.unparse(this.activities)   ; // Convierte a CSV
     const csvData = this.activities.map(activity => {
-      return `"titulo:" ${activity.title}, tipo:${activity.type},id:${activity.id}`;
+      return `"titulo": ${activity.title}, "tipo": ${activity.type}, "prioridad": ${activity.priority}, "estado": ${activity.status}, "asignado a": ${activity.user}, "id": ${activity.id}`;
     }).join('\n'); // Convierte a CSV
     const blob = new Blob([csvData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
-    
+
     // Crea un enlace de descarga
     const a = document.createElement('a');
     a.href = url;
