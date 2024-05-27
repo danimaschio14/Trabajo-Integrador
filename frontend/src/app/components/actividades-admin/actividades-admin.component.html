@@ -3,8 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <span class="h3">Lista de Actividades</span>
-                 <!-- <button class="btn" routerLink='/create-empleado'>Agregar</button> -->
-                  <table class="table table-hover">
+                  <table #t class="table table-hover">
                     <thead>
                       <tr>
                         <th>Titulo</th>
@@ -17,6 +16,15 @@
                         <td>{{activity.title}}</td>
                         <td>{{activity.type}}</td>
                         <td><dialog-record [activityId]=activity.id /></td>
+                      </tr>
+                      <tr>
+                        <p-button
+                        class="accion"
+                        icon="pi pi-file"
+                        label="Exportar"
+                        (click)="exportToCSV()"
+                        pTooltip="Exportar"
+                      ></p-button>
                       </tr>
                     </tbody>
                   </table>

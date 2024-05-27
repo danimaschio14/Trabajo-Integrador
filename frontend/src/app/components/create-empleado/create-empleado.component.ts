@@ -25,6 +25,7 @@ export class CreateEmpleadoComponent implements OnInit{
   submitted=false;
   id: string|null;
   titulo= "Agregar Usuario"
+  
 
 
   constructor(
@@ -71,12 +72,15 @@ export class CreateEmpleadoComponent implements OnInit{
    
   this.empleadoService.addUser(empleado).then(
     () => {
-      this.router.navigate(['login']);
+      // this.router.navigate(['login']);
       this.messageService.add({
         severity: 'success',
         summary: 'Empleado agregado con éxito',
         detail: 'El empleado se ha registrado correctamente.',
       });
+      setTimeout(() => {
+        this.router.navigate(['login']);
+      }, 1000);
     },
     (error) => {
       if (error.status === 400) {

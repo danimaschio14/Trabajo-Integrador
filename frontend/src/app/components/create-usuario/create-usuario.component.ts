@@ -22,6 +22,7 @@ export class CreateUsuarioComponent implements OnInit{
   submitted=false;
   id: string|null;
   titulo= "Agregar Usuario"
+  boton="Agregar"
 
 
   constructor(
@@ -90,7 +91,11 @@ export class CreateUsuarioComponent implements OnInit{
         summary: 'Uusuario agregado con éxito',
         detail: 'El usuario se ha registrado correctamente.',
        
-      }); this.router.navigate(["usuarios"])
+      });
+
+      setTimeout(() => {
+        this.router.navigate(['usuario']);
+      }, 1000);
        
       },
       (error) => {
@@ -110,6 +115,7 @@ export class CreateUsuarioComponent implements OnInit{
   editEmpleado(){
     if(this.id!==null){
       this.titulo="Editar Usuario"
+      this.boton="Editar"
       const idEmpleado : number= parseInt(this.id)
       this.usuarioService.getUser(idEmpleado).subscribe(data =>{
         this.createUsuario.setValue({

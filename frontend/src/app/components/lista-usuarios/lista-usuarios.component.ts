@@ -63,7 +63,7 @@ export class ListaUsuarioComponent implements OnInit {
 
   deleteEmpleado(idUsuario: number) {
     this.usuarioService.deleteUser(idUsuario).subscribe(() => {
-      this.empleados=[], this.getEmpleados()
+      this.empleados=[]; this.getEmpleados()
       this.messageService.add({
         severity: 'info', // Puedes usar 'success', 'info', 'warn' o 'error'
         summary: 'Usuario eliminado con éxito',
