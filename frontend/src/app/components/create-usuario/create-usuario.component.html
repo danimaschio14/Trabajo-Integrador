@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h3>{{titulo}}</h3>
                     <span *ngIf="submitted && createUsuario.invalid">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
-                    <form class="mt-4" [formGroup]="createUsuario" (ngSubmit)="addEditEmpleado()">
+                    <form class="mt-4" [formGroup]="createUsuario" (ngSubmit)="addEditUsuario()">
                         <div class="row">
                             <div class="col">
                                 <input type="text" class="form-control form-control-lg" formControlName="name"

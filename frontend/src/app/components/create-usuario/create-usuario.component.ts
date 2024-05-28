@@ -43,10 +43,10 @@ export class CreateUsuarioComponent implements OnInit{
     this.id= this.aRoute.snapshot.paramMap.get('id');    
   }
   ngOnInit(): void {
-    this.editEmpleado()
+    this.llenarFormulario()
   }
 
-  addEditEmpleado(){
+  addEditUsuario(){
     this.submitted=true
 
     if (this.createUsuario.invalid) {
@@ -54,13 +54,13 @@ export class CreateUsuarioComponent implements OnInit{
     } 
 
     if (this.id===null) {
-      this.agregarEmpleado();
+      this.agregarUsuario();
     }else{
-      this.editEmployee(this.id);
+      this.editUsuario(this.id);
     }
   }
 
-  editEmployee(id:string){
+  editUsuario(id:string){
     const idEmpleado : number= parseInt(id)
     const empleado: any ={
       name:this.createUsuario.value.name,
@@ -71,11 +71,30 @@ export class CreateUsuarioComponent implements OnInit{
       status:this.createUsuario.value.status,
     }
     this.usuarioService.editUser(idEmpleado,empleado).then(() => {
-      this.router.navigate(["usuarios"])  
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Usuario editado con éxito',
+        detail: 'El usuario se ha editado correctamente.',
+       
       });
+      setTimeout(() => {
+        this.router.navigate(['usuarios']);
+      }, 1000);
+    },
+    (error) => {
+      if (error.status === 400) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al editar usuario',
+          detail: 'Revisa los campos nuevamente.',
+        });
+      } else {
+        console.error('Error desconocido:', error);
+      }
+      }); 
   }
 
-  agregarEmpleado(){
+  agregarUsuario(){
     const empleado: any ={
       name:this.createUsuario.value.name,
       lastName:this.createUsuario.value.lastName,
@@ -85,16 +104,15 @@ export class CreateUsuarioComponent implements OnInit{
       status:this.createUsuario.value.status,
     }
     this.usuarioService.addUser(empleado).then(() => {
-      // this.router.navigate(["usuarios"]),
       this.messageService.add({
         severity: 'success', // Puedes usar 'success', 'info', 'warn' o 'error'
-        summary: 'Uusuario agregado con éxito',
+        summary: 'Usuario agregado con éxito',
         detail: 'El usuario se ha registrado correctamente.',
        
       });
 
       setTimeout(() => {
-        this.router.navigate(['usuario']);
+        this.router.navigate(['usuarios']);
       }, 1000);
        
       },
@@ -112,7 +130,7 @@ export class CreateUsuarioComponent implements OnInit{
     );
   }
 
-  editEmpleado(){
+  llenarFormulario(){
     if(this.id!==null){
       this.titulo="Editar Usuario"
       this.boton="Editar"

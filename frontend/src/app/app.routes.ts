@@ -43,7 +43,6 @@ export const routes: Routes = [
   {
     path: 'create-empleado',
     component: CreateEmpleadoComponent,
-    canActivate: [adminGuard],
     },
   {
     path: '**',

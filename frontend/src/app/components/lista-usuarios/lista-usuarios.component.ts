@@ -10,7 +10,8 @@ import { BaseComponent } from '../base/base.component';
 import { RouterLink } from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { UsuarioService } from '../../services/usuario.service';
-
+import { ConfirmacionDialogComponent } from '../confirm-dialog/confirmacion-dialog.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lista-usuario',
@@ -29,7 +30,8 @@ export class ListaUsuarioComponent implements OnInit {
 
     constructor(
       private usuarioService:UsuarioService,
-      private messageService: MessageService
+      private messageService: MessageService,
+      public dialog: MatDialog,
     ){}
 
 
@@ -43,14 +45,17 @@ export class ListaUsuarioComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.getEmpleados()
-      }
+    this.getUsuarios()
+  
+  }
+
 
   applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-  } 
-  getEmpleados(){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+  getUsuarios(){
     this.usuarioService.getAllUsers().subscribe(data => {
       data.forEach((element: any) =>{      
         this.empleados.push({element,...element})
@@ -61,15 +66,52 @@ export class ListaUsuarioComponent implements OnInit {
     })
   }
 
-  deleteEmpleado(idUsuario: number) {
-    this.usuarioService.deleteUser(idUsuario).subscribe(() => {
-      this.empleados=[]; this.getEmpleados()
-      this.messageService.add({
-        severity: 'info', // Puedes usar 'success', 'info', 'warn' o 'error'
-        summary: 'Usuario eliminado con éxito',
-        detail: 'El usuario se ha eliminado correctamente.',
-      });
+  // deleteUsuario(idUsuario: number) {
+  //   this.usuarioService.deleteUser(idUsuario).subscribe(() => {
+  //     this.empleados=[]; this.getUsuarios()
+  //     this.messageService.add({
+  //       severity: 'info',
+  //       summary: 'Usuario eliminado con éxito',
+  //       detail: 'El usuario se ha eliminado correctamente.',
+  //     });
      
+  //   });
+  // }
+
+  // deleteUsuario(idUsuario: number) {
+  //   const confirmacion = window.confirm('¿Estás seguro de eliminar este usuario?');
+  
+  //   if (confirmacion) {
+  //     this.usuarioService.deleteUser(idUsuario).subscribe(() => {
+  //       this.empleados = [];
+  //       this.getUsuarios();
+  //       this.messageService.add({
+  //         severity: 'info',
+  //         summary: 'Usuario eliminado con éxito',
+  //         detail: 'El usuario se ha eliminado correctamente.',
+  //       });
+  //     });
+  //   }
+  // }
+
+  deleteUsuario(idUsuario: number) {
+    const dialogRef = this.dialog.open(ConfirmacionDialogComponent);
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // El usuario confirmó la eliminación
+        this.usuarioService.deleteUser(idUsuario).subscribe(() => {
+          this.empleados = [];
+          this.getUsuarios();
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Usuario eliminado con éxito',
+            detail: 'El usuario se ha eliminado correctamente.',
+          });
+        });
+      } else {
+      }
     });
   }
+
 }
