@@ -2,9 +2,9 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude, Expose } from "class-transformer";
 
 import { Activity } from "./activity.entity";
+import { ActivityRecord } from "./activity.record.entity";
 import { UserRole } from "src/enum/user-role";
 import { UserStatus } from "src/enum/user-status";
-import { ActivityRecord } from "./activity.record.entity";
 
 @Entity('user')
 export class User {
@@ -17,7 +17,7 @@ export class User {
     @Column()
     lastName: string
     
-    @Column()
+    @Column({ unique: true })
     email: string
 
     @Exclude()

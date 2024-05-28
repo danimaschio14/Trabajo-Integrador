@@ -1,10 +1,28 @@
 a{
-  color: #ffc107;
+  text-decoration:none;
+  color: black;
 }
-a.nav-link.active {
-  color: #ffc107;
+// a.nav-link.active {
+//   color: #ffc107;
+// }
+
+// .btn button:hover {
+//     color: azure;
+// }
+
+body {
+  font-family: var(--font-family);
+  font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  padding: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.btn button:hover {
-    color: azure;
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }

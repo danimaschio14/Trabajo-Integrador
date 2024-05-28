@@ -1,7 +1,7 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-
+@import "primeflex/primeflex.css";
 
 body {
     margin: 0;
@@ -30,17 +30,17 @@ body {
     margin-bottom: 1rem;
   }
 
-.btn2{
-  background-color: #ffc107;
-  height: 40px;
-  outline: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  border:none;
-}
+// .btn2{
+//   background-color: #ffc107;
+//   height: 40px;
+//   outline: none;
+//   border-radius: 10px;
+//   font-size: 16px;
+//   font-weight: 600;
+//   border:none;
+// }
 
-.btn2 button:hover {
-  background-color: #ffc107 !important;
+// .btn2 button:hover {
+//   background-color: #ffc107 !important;
 
-}
+// }
