@@ -72,7 +72,6 @@ export class CreateEmpleadoComponent implements OnInit{
    
   this.empleadoService.addUser(empleado).then(
     () => {
-      // this.router.navigate(['login']);
       this.messageService.add({
         severity: 'success',
         summary: 'Empleado agregado con éxito',

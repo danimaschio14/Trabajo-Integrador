@@ -1,40 +1,63 @@
 <app-base>
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                <span class="h3">Lista de Actividades</span>
-                  <table #t class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Titulo</th>
-                        <th>Tipo</th>
-                        <th>Prioridad</th>
-                        <th>Estado</th>
-                        <th>Asignado a</th>
-                        <th>Mostrar records</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let activity of activities">
-                        <td>{{activity.title}}</td>
-                        <td>{{activity.type}}</td>
-                        <td>{{activity.priority}}</td>
-                        <td>{{activity.status}}</td>
-                        <td>{{activity.user}}</td>
-                        <td><dialog-record [activityId]=activity.id /></td>
-                      </tr>
-                      <tr>
-                        <p-button
-                        class="accion"
-                        icon="pi pi-file"
-                        label="Exportar"
-                        (click)="exportToCSV()"
-                        pTooltip="Exportar"
-                      ></p-button>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
-        </div>
-    </div>
-    </app-base>
+<div>
+  <div>
+      <span class="h3">Lista de Actividades</span>
+      <i (click)="exportToCSV()" class="fa-solid fa-file-arrow-down"  matTooltip="Descargar CSV"></i>
+      <button class="btn2" routerLink='/create-usuario'>Agregar</button>
+  </div> 
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>  
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+  
+   
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Titulo </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+  
+   
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prioridad </th>
+      <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef> Asignado a </th>
+      <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registry">
+      <th mat-header-cell *matHeaderCellDef> Mostrar Registro </th>
+      <td mat-cell *matCellDef="let element">
+        <a class="pointer" [routerLink]="['/edit-usuario/',element.id]" style="color: #ffc107;"  matTooltip="Editar Usuario">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <dialog-record [activityId]=element.id />
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+</div>
+</app-base>
