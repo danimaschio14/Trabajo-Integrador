@@ -5,22 +5,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import {ToastModule} from 'primeng/toast'
+import { ToastModule } from 'primeng/toast'
 import { MessageService } from 'primeng/api';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RolesEnum } from '../../enums/roles.enum';
-
 
 @Component({
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule,RouterLink],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, RouterLink],
 })
 export class LoginComponent {
   form = new FormGroup({
@@ -54,7 +54,7 @@ export class LoginComponent {
           if (this.authService.hasRole(RolesEnum.ADMIN)) {
             this.router.navigateByUrl('admin');
           } else {
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('client');
           }
         },
         error: (err) => {

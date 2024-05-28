@@ -1,22 +1,30 @@
 <!-- <nav class="navbar bg-dark navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand" routerLink="/admin">Simple Reminder</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" routerLink="/usuarios">Lista de empleados</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" routerLink="/admin">Lista de activides</a>
-              </li>
-            </ul>
-            <button class="btn2" (click)="cerrarSesion()">Cerrar Sesión</button>
-          </div>
-        </div>
-      </nav> -->
+    <div class="container-fluid">
+      <ng-template [ngIf]="admin" [ngIfElse]="employee">
+          <a class="navbar-brand" routerLink="/admin">G8</a>
+      </ng-template>
+      <ng-template #employee>
+        <a class="navbar-brand" routerLink="/client">G8</a>
+      </ng-template>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ng-template [ngIf]="admin">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/usuarios">Lista de empleados</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/admin">Lista de actividades</a>
+            </li>
+          </ng-template>
+        </ul>
+        <button class="btn2" (click)="cerrarSesion()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav> -->
+
 <div class="card flex justify-content-center">
   <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
     <ng-template pTemplate="headless">
