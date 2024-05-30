@@ -1,38 +1,23 @@
-<!-- <nav class="navbar bg-dark navbar-expand-lg">
-    <div class="container-fluid">
-      <ng-template [ngIf]="admin" [ngIfElse]="employee">
-          <a class="navbar-brand" routerLink="/admin">G8</a>
-      </ng-template>
-      <ng-template #employee>
-        <a class="navbar-brand" routerLink="/client">G8</a>
-      </ng-template>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <ng-template [ngIf]="admin">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" routerLink="/usuarios">Lista de empleados</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" routerLink="/admin">Lista de actividades</a>
-            </li>
-          </ng-template>
-        </ul>
-        <button class="btn2" (click)="cerrarSesion()">Cerrar Sesión</button>
-      </div>
-    </div>
-  </nav> -->
-
 <div class="card flex justify-content-center">
   <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
     <ng-template pTemplate="headless">
-      
-        <div class="flex flex-column h-full">
+      <div class="flex flex-column h-full">
         <div
-          class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0"
-        >
+          class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
+          <!--Logo + ngtemplate con routeo-->
+
+            <a class="navbar-brand" routerLink= {{url}} >
+              <span class="inline-flex align-items-center gap-2">
+                <img
+                  width="33"
+                  height="35"
+                  class="block mx-auto"
+                  src="../../../assets/img/logo-g8.png"
+                />
+                <span class="font-semibold text-2xl text-primary">NOT JIRA</span>
+              </span>
+            </a>
+
           <!--close-->
           <span>
             <p-button
@@ -45,6 +30,7 @@
             ></p-button>
           </span>
         </div>
+
         <div class="overflow-y-auto">
           <!--tareas-->
           <ul class="list-none p-3 m-0">
@@ -62,148 +48,131 @@
                 <i class="pi pi-chevron-down"></i>
               </div>
               <ul class="list-none p-0 m-0 overflow-hidden">
-                <li>
-                  <a
-                    pRipple
-                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-folder mr-2"></i>
-                    <span class="font-medium">Ver listado</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-chart-bar mr-2"></i>
-                    <span class="font-medium">Nueva tarea</span>
-                  </a>
-                </li>
+                <ng-template [ngIf]="admin" [ngIfElse]="employeeNav">
+                  <li>
+                    <a
+                      pRipple
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                      routerLink="/admin"
+                      >
+                      <i class="pi pi-folder mr-2"></i>
+                      <span class="font-medium">Ver listado</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      pRipple
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                      >
+                      <i class="pi pi-chart-bar mr-2"></i>
+                      <span class="font-medium">Nueva tarea</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      pRipple
+                      pStyleClass="@next"
+                      enterClass="hidden"
+                      enterActiveClass="slidedown"
+                      leaveToClass="hidden"
+                      leaveActiveClass="slideup"
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                    >
+                      <i class="pi pi-chart-line mr-2"></i>
+                      <span class="font-medium">Auditoria</span>
+                    </a>
+                  </li>
+                </ng-template>
+                <ng-template #employeeNav>
+                  <li>
+                    <a
+                      pRipple
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                      routerLink="/client"
+                      >
+                      <i class="pi pi-folder mr-2"></i>
+                      <span class="font-medium">Ver tareas asignadas</span>
+                    </a>
+                  </li>
+                </ng-template>
               </ul>
             </li>
-            <li>
-                <a
-                    pRipple
-                    pStyleClass="@next"
-                    enterClass="hidden"
-                    enterActiveClass="slidedown"
-                    leaveToClass="hidden"
-                    leaveActiveClass="slideup"
-                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+          </ul>
+
+          <ng-template [ngIf]="admin">
+            <!--empleados-->
+            <ul class="list-none p-3 m-0">
+              <li>
+                <div
+                  pRipple
+                  pStyleClass="@next"
+                  enterClass="hidden"
+                  enterActiveClass="slidedown"
+                  leaveToClass="hidden"
+                  leaveActiveClass="slideup"
+                  class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
                 >
-                    <i class="pi pi-chart-line mr-2"></i>
-                    <span class="font-medium">Auditoria</span>
-                    <i class="pi pi-chevron-down ml-auto"></i>
-                </a>
-                <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
-                    <li>
-                        <a
-                            pRipple
-                            pStyleClass="@next"
-                            enterClass="hidden"
-                            enterActiveClass="slidedown"
-                            leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                        >
-                            <i class="pi pi-chart-line mr-2"></i>
-                            <span class="font-medium">Registros activos</span>
-                            <i class="pi pi-chevron-down ml-auto"></i>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a
-                            pRipple
-                            pStyleClass="@next"
-                            enterClass="hidden"
-                            enterActiveClass="slidedown"
-                            leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                        >
-                            <i class="pi pi-chart-line mr-2"></i>
-                            <span class="font-medium">Registros cerrados</span>
-                            <i class="pi pi-chevron-down ml-auto"></i>
-                        </a>
-
-                    </li>
-
+                  <span class="font-medium">EMPLEADOS</span>
+                  <i class="pi pi-chevron-down"></i>
+                </div>
+                <ul class="list-none p-0 m-0 overflow-hidden">
+                  <li>
+                    <a
+                      pRipple
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                      routerLink="/usuarios"
+                      aria-current="page"
+                    >
+                      <i class="pi pi-folder mr-2"></i>
+                      <span class="font-medium">Ver listado</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      pRipple
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                      routerLink = "/create-usuario-admin"
+                      >
+                      <i class="pi pi-chart-bar mr-2"></i>
+                      <span class="font-medium">Nuevo usuario</span>
+                    </a>
+                  </li>
                 </ul>
-            </li>
-          </ul>
-          <!--if(rol==admin) ver listado tareas-->
-          <!--empleados-->
-          <ul class="list-none p-3 m-0">
-            <li>
-              <div
-                pRipple
-                pStyleClass="@next"
-                enterClass="hidden"
-                enterActiveClass="slidedown"
-                leaveToClass="hidden"
-                leaveActiveClass="slideup"
-                class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
-              >
-                <span class="font-medium">EMPLEADOS</span>
-                <i class="pi pi-chevron-down"></i>
-              </div>
-              <ul class="list-none p-0 m-0 overflow-hidden">
-                <li>
-                  <a
-                    pRipple
-                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-folder mr-2"></i>
-                    <span class="font-medium">Ver listado</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-chart-bar mr-2"></i>
-                    <span class="font-medium">Nuevo usuario</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </ng-template>
         </div>
 
-        <li>
-            <a
-                pRipple
-                pStyleClass="@next"
-                enterClass="hidden"
-                enterActiveClass="slidedown"
-                leaveToClass="hidden"
-                leaveActiveClass="slideup"
-                class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-            >
-                <i class="pi pi-chart-line mr-2"></i>
-                <span class="font-medium">Reports</span>
-                <i class="pi pi-chevron-down ml-auto"></i>
-            </a>
-            </li>
+
 
         <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
         <!--user-->
         <div class="mt-auto">
-            <a pRipple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                <span class="font-bold">Amy Elsner</span>
-            </a>
-        </div>
-        <div class="mt-auto">
-        <button class="btn2" (click)="cerrarSesion()">Cerrar Sesión</button>
-    </div>
-        
-      </div>
+          <a
+            pRipple
+            class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+          >
+            <p-avatar
+              image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+              shape="circle"
+            />
+            <span class="font-bold"> Hola {{user.name}} ! </span>
+          </a>
+          <p-button 
+          class="m-3 flex align-items-center cursor-pointer p-3 gap-2"
+          icon="pi pi-times" 
+          label="Cerrar Sesion" 
+          [raised]="true" 
+          severity="danger" 
+          (click)="cerrarSesion()">
+        </p-button>
 
+        </div>
+      </div>
     </ng-template>
   </p-sidebar>
+  
   <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+
 </div>

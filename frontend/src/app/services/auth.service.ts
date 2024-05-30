@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { RolesEnum } from '../enums/roles.enum';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -43,4 +43,13 @@ export class AuthService {
 
     return new JwtHelperService().decodeToken(token).rol === rol;
   }
+
+  getUserId() : number | null {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return null
+    }
+    return new JwtHelperService().decodeToken(token).sub;
+  }
+  
 }

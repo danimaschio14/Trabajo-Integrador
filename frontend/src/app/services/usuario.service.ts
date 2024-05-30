@@ -1,6 +1,7 @@
+import { Observable, firstValueFrom } from "rxjs";
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -32,10 +33,16 @@ import { Observable } from "rxjs";
     return this.http.get(url);
   }
 
+  getUserById(id:number): Promise<any>{
+    const url = `${this.apiUrl}/user/${id}`;
+     // Realiza una solicitud HTTP GET para obtener un usuario by id
+     return firstValueFrom(this.http.get(url));
+  }
+  
   editUser(idUsuario: number,user: any): Promise<any> {
     const url = `${this.apiUrl}/user/${idUsuario}`;
      // Realiza una solicitud HTTP PATCH para editar un usuario
-    return this.http.patch(url,user).toPromise();
+    return firstValueFrom(this.http.patch(url,user));
   }
 
 }
