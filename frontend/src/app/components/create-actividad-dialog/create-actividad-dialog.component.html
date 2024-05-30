@@ -1,0 +1,10 @@
+<button class="btn2" (click)="showDialog()">{{btnText}}</button>
+<p-dialog
+    header={{title}}
+    [modal]="true"
+    [draggable]="false"
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <create-activity [id]=this.activityId/>
+</p-dialog>
