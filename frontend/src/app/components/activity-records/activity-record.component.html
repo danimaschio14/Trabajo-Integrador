@@ -32,8 +32,11 @@
             <ng-template [ngIf]="r.status === 'CANCELED'">
               <p-tag icon="pi pi-info-circle text-3xl" severity="danger" value="Cancelado"/>
             </ng-template>
+            <ng-template [ngIf]="r.status === 'FINISHED'">
+              <p-tag icon="pi pi-info-circle text-3xl" severity="contrast" value="Terminado"/>
+            </ng-template>
             <ng-template [ngIf]="r.status === 'IN PROGRESS'">
-              <p-tag icon="pi pi-info-circle text-3xl" severity="contrast" value="En progreso"/>
+              <p-tag icon="pi pi-info-circle text-3xl" severity="secondary" value="En progreso"/>
             </ng-template>
           </ng-template>
           <ng-template #changue>
