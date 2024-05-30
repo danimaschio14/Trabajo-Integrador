@@ -51,11 +51,21 @@ export class ActivityController {
       return activities
     }
 
-    @Roles([UserRole.ADMIN])
+    @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
     @UseGuards(AuthGuard)
     @Get(":id")
-    getActivity (@Param("id",ParseIntPipe) id: number ) {
-        return this.activityService.getActivityById(id)
+    async getActivity (@Param("id",ParseIntPipe) id: number ) {
+        const activity = await this.activityService.getActivityById(id);
+        const lastRecord = await this.activityRecordService.getLastRecord(activity);
+
+        return {
+          "id": activity.id,
+          "title": activity.title,
+          "type": activity.type,
+          "priority": lastRecord.priority,
+          "status": lastRecord.status,
+          "user": lastRecord.user
+        }
     }
 
     // @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
