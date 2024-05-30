@@ -33,6 +33,7 @@ export class CreateActividad implements OnInit{
     private router: Router,
     private usuarioService: UsuarioService,
     private messageService:MessageService,
+    private dialog : CreateActividadDialog
 
     ) {
       this.createActividad= this.fb.group({
@@ -73,14 +74,13 @@ export class CreateActividad implements OnInit{
     }
 
     this.actividadService.updateActivity(id, actividad).then((data) => {
-      //console.log(data)
       this.messageService.add({
         severity: 'success', // Puedes usar 'success', 'info', 'warn' o 'error'
         summary: 'Actividad agregada con éxito',
         detail: 'La actividad se ha registrado correctamente.',
       });
-      this.router.navigateByUrl('admin');
-
+      this.closeForm()
+      this.refrescarPagina()
       }, (error) => {
           console.error('Error desconocido:', error);
       }
@@ -101,8 +101,8 @@ export class CreateActividad implements OnInit{
         summary: 'Actividad agregada con éxito',
         detail: 'La actividad se ha registrado correctamente.',
       });
-      this.router.navigateByUrl('admin');
-
+      this.closeForm()
+      this.refrescarPagina()
       }, (error) => {
         this.messageService.add({
           severity: 'error', // Puedes usar 'success', 'info', 'warn' o 'error'
@@ -133,6 +133,14 @@ export class CreateActividad implements OnInit{
         this.usuarios.push({element,...element})
       })
     })
+  }
+
+  closeForm(){
+    this.dialog.visible = false;
+  }
+
+  refrescarPagina() {
+    location.reload();
   }
 
 }
