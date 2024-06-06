@@ -1,0 +1,22 @@
+.title-home {
+  font-size: 3rem;
+}
+
+#change-home-title {
+  color: var(--primary-color);
+  animation-name: anim;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes anim {
+  0% {
+    color: var(--primary-700)}
+  25% {
+    color: var(--primary-900)}
+  50% {
+    color: var(--primary-color)}
+  75% {
+    color: var(--primary-700)}
+  100% {color: var(--primary-300)}
+}

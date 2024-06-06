@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { OldFooterComponent } from '../old-footer/old-footer.component';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-base',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, ToastModule],
+  imports: [HeaderComponent, OldFooterComponent, ToastModule, FooterComponent],
   templateUrl: './base.component.html',
   styleUrl: './base.component.scss'
 })

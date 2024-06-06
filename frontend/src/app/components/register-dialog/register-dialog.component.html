@@ -1,0 +1,66 @@
+<a class="show-dialog" pRipple (click)="showDialog()">¡Registrate!</a>
+<p-dialog [(visible)]="visible">
+    
+    <ng-template pTemplate="headless">
+        
+        <div id="register-body" class="flex flex-column px-4 py-4 gap-2" >
+            <h2 class="font-semibold">{{titulo}}</h2>
+            <span *ngIf="submitted && createEmpleado.invalid">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
+
+            <form class="" [formGroup]="createEmpleado" (ngSubmit)="addEmpleado()">
+                <div class="row gap-3">
+                    <div class="col p-0">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="name"
+                            placeholder="Nombre">
+                    </div>
+                    <div class="col p-0">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="lastName"
+                            placeholder="Apellido">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <label for="email">Email</label>
+                    <input type="email" 
+                    class="form-control form-control-lg" 
+                    formControlName="email"
+                    placeholder="Ingrese su email...">
+                </div>
+
+                <div class="row mt-4">
+                    <label for="password">Contrase&ntilde;a</label>
+                    <input type="password" 
+                    class="form-control form-control-lg" 
+                    formControlName="password"
+                    placeholder="Ingrese su contraseña...">
+                </div>
+
+                <div>
+                    <input type="hidden" 
+                    class="form-control form-control-lg mt-3 text-secondary" 
+                    value="EMPLOYEE"
+                    formControlName="role"
+                    >
+                </div>
+
+                <div>
+                    <input 
+                    type="hidden" 
+                    class="form-control form-control-lg mt-3 text-secondary" 
+                    value="INACTIVE"
+                    formControlName="status"
+                    >
+                </div> 
+            <div class="mt-4">
+                <div class="flex align-items-center gap-2">
+                    <p-button label="Registrarse" type="submit" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"  />
+                    <p-button label="Cancelar" (click)="closeDialog()" [text]="true"  styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
+                </div>
+            </div>
+            </form>
+        </div>
+
+    </ng-template>
+</p-dialog>

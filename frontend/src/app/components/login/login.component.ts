@@ -1,26 +1,27 @@
-import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast'
-import { MessageService } from 'primeng/api';
 import { Router, RouterLink } from '@angular/router';
+
 import { AuthService } from '../../services/auth.service';
+import { ButtonModule } from 'primeng/button';
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+import { PasswordModule } from 'primeng/password';
+import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { RolesEnum } from '../../enums/roles.enum';
+import { ToastModule } from 'primeng/toast'
 
 @Component({
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, RouterLink],
+  imports: [RegisterDialogComponent, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, RouterLink],
 })
 export class LoginComponent {
   form = new FormGroup({

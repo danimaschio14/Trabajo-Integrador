@@ -1,24 +1,16 @@
-footer {
-    bottom: 0;
-    left: 0;
+
+#footer-background {
+    position: relative;
     width: 100%;
-    height: auto;
-}
-i{
-  margin-bottom: 10px;
-}
-
-h5 {
-  font-size: 1.2em;
-}
-
-
-@media only screen and (min-height: 800px) {
-  footer {
-    width: auto;
-    grid-template-columns: repeat(1,1fr);
-    grid-gap: 30px;
-    padding: 35px 0px;
+    margin-bottom: 0;
+    font-family: var(--font-family);
+    font-weight: normal;
+    background-color: var(--bluegray-900);
+    color: white;
+    padding: 1rem;
   }
-}
 
+  .contact{
+    font-style: italic;
+    font-weight: 300;
+  }

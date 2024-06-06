@@ -1,0 +1,17 @@
+.show-dialog{
+    text-decoration: none;
+    color: white;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+#register-body{
+    width: 35rem;
+    height: 28rem;
+    border-radius: 12px;
+    background: rgb(13, 49, 105);
+    border: 2px solid rgba(255,255,255,.5);
+}
+
+

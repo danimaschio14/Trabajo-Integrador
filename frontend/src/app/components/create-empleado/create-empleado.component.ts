@@ -1,16 +1,15 @@
-import { Component,OnInit} from '@angular/core';
-import { BaseComponent } from '../base/base.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
-import { UsuarioService } from '../../services/usuario.service';
-import { RolesEnum } from '../../enums/roles.enum';
-import { UserStatus } from '../../enums/status.enum';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { BaseComponent } from '../base/base.component';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { NgIf } from '@angular/common';
 import { PrincipioComponent } from '../principio/principio.component';
-
-
+import { RolesEnum } from '../../enums/roles.enum';
+import { ToastModule } from 'primeng/toast';
+import { UserStatus } from '../../enums/status.enum';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-create-empleado',

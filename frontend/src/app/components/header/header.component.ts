@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 
 import { AuthService } from '../../services/auth.service';
 import { ImportsHeader } from './header.imports';
 import { NgIf } from '@angular/common';
-import { ParseIntPipe } from '@nestjs/common';
 import { RolesEnum } from '../../enums/roles.enum';
 import { RouterLink } from '@angular/router';
 import { Sidebar } from 'primeng/sidebar';
@@ -19,6 +18,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class HeaderComponent implements OnInit{
   user : any 
   url = "/admin"
+  sidebarVisible: boolean = false;
 
   constructor(private authService: AuthService, private userService : UsuarioService) {}
   admin : boolean = this.authService.hasRole(RolesEnum.ADMIN);
@@ -48,9 +48,11 @@ export class HeaderComponent implements OnInit{
     this.authService.logout();
   }
 
+  
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
   closeCallback(e: any): void {
       this.sidebarRef.close(e);
   }
-  sidebarVisible: boolean = false;
+
 }
+

@@ -13,10 +13,7 @@
     </div>
     <button class="btn" (click)="login()">Confirmar</button>
     <div class="register-link">
-      <p>Don´t have a account?
-        <a [routerLink]="['/create-empleado']">Register</a>
-      </p>
-
+      <p>¿Todavía no tenes una cuenta?</p><app-register-dialog />
     </div>
   </form>
 </div>

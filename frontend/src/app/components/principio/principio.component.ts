@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
+import { OldFooterComponent } from '../old-footer/old-footer.component';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-principio',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, ToastModule],
+  imports: [HeaderComponent, OldFooterComponent, ToastModule],
   templateUrl: './principio.component.html',
   // styleUrl: './base.component.scss'
 })
