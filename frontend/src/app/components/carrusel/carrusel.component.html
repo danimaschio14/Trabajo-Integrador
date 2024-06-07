@@ -1,0 +1,32 @@
+<p-carousel
+    *ngIf="admin"
+    [value]="imgAdmin"
+    [circular]="true" 
+    autoplayInterval="4000"> 
+    <ng-template let-adm pTemplate="item"> 
+        <div class="product-item"> 
+            <div class="product-item-content"> 
+                <div class="product-image">
+                    <img [src]="adm.image"/>
+                </div>
+            </div> 
+        </div> 
+    </ng-template>
+</p-carousel>
+
+<p-carousel
+    *ngIf="employee" 
+    [value]="imgEmployee"
+    [circular]="true" 
+    autoplayInterval="4000"> 
+    <ng-template let-emp pTemplate="item"> 
+        <div class="product-item"> 
+            <div class="product-item-content"> 
+                <div class="product-image">
+                    <img [src]="emp.image"/>
+                </div>
+            </div> 
+        </div> 
+    </ng-template>
+</p-carousel>
+

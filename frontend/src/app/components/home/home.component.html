@@ -1,30 +1,77 @@
-<app-base>
-  <div class="container overflow-hidden">
+<!-- <app-base>
+  <div class="container overflow-hidden"> -->
     <!--Seccion 1-->
-    <div
+    <!-- <div
       class="flex flex-grow-1 md:flex-grow-0 align-items-center justify-content-center mt-4"
     >
       <h1 class="font-bold title-home">SISTEMA DE GESTION DE TAREAS</h1>
       <h1 id="change-home-title" class="font-semibold title-home">&nbsp;NOT JIRA</h1>
-    </div>
+    </div> -->
 
     <!--Seccion 2 - admin 
     Repliquen el div de adentro como contenedor
     -->
-    <ng-template [ngIf]="admin" [ngIfElse]="employeeHome">
+    <!-- <ng-template [ngIf]="admin" [ngIfElse]="employeeHome">
         <div class="flex flex-grow-1 md:flex-grow-0 align-items-center justify-content-center mt-4">
             <p>Metan lo que quieran en este div</p>
         </div>
-    </ng-template>
+    </ng-template> -->
 
     <!--Seccion 2 - usuario
     Igual que arriba
 -->
-    <ng-template #employeeHome>
+    <!-- <ng-template #employeeHome>
         <div class="flex flex-grow-1 md:flex-grow-0 align-items-center justify-content-center mt-4">
             <p>Metan lo que quieran en este div</p>
         </div>
     </ng-template>
 
   </div>
+</app-base> -->
+
+<app-base>
+  <div
+    class="flex flex-grow-1 md:flex-grow-0 align-items-center justify-content-center mt-4" id="title"
+  >
+    <h1 class="font-bold title-home">SISTEMA DE GESTION DE TAREAS</h1>
+    <span id="change-home-title" class="font-semibold title-home">&nbsp;NOT JIRA</span>
+  </div>
+
+  <div class="title">
+    <h1>Pensado para las personas.</h1>
+    <span id="change-home-title">Creado para la productividad.</span>
+  </div>
+  
+
+  <section>
+    <app-carousel></app-carousel>
+  </section>
+  
+  <section *ngIf="admin" class="panel1">
+    <img class="img" src="../../../assets/img/panel.png" alt="">
+    <div class="text">
+        <h2 class="display-as-h1 v--intl u-margin-top--flush">Agiliza el trabajo con todas tus herramientas en un mismo lugar</h2>
+        <p class="o-section--feature__copy u-margin-bottom--medium">Administra todas tus tareas y usuarios desde un solo lugar con Not Jira</p>
+    </div>
+  </section>
+
+  <section>
+    <app-card></app-card>
+  </section>
+
+  <section *ngIf="admin" class="panel2">
+    <img class="img" src="../../../assets/img/mockup.png" alt="">
+    <div class="text">
+        <h2 class="display-as-h1 v--intl u-margin-top--flush">Lleva un seguimiento de las actividades</h2>
+        <p class="o-section--feature__copy u-margin-bottom--medium">A través de los registros y la opcion de exportar CSV con Not Jira</p>
+    </div>      
+  </section>
+
+  <section *ngIf="employee" class="panel2">  
+        <img class="img" src="../../../assets/img/mockupEmp.png" alt="">
+        <div class="text">
+            <h2 class="display-as-h1 v--intl u-margin-top--flush">Gestiona tus actividades</h2>
+            <p class="o-section--feature__copy u-margin-bottom--medium">Una facil gestión de las actividades con Not Jira</p>
+        </div>
+  </section>
 </app-base>
