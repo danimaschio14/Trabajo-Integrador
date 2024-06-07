@@ -1,5 +1,4 @@
 main {
-  height: 90vh;
   margin: 0;
   // top: 10vh;
   // bottom: 10vh;
@@ -10,8 +9,15 @@ main {
   justify-content: flex-start;
   align-items: center;
   padding: 1rem;
+  padding-bottom: 10rem;
   flex-direction: column;
 }
+
+#container-wrap{
+  position: relative;
+  height: 100vh;
+}
+
 
   @media only screen and (min-height: 400px) {
     .main {

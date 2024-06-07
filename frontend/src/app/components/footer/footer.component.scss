@@ -1,9 +1,10 @@
 
 #footer-background {
-    position: relative;
+    position: absolute;
     width: 100%;
     margin-bottom: 0;
-    font-family: var(--font-family);
+    height: 10rem; 
+    //font-family: var(--font-family);
     font-weight: normal;
     background-color: var(--bluegray-900);
     color: white;
