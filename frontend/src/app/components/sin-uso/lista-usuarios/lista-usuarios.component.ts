@@ -6,11 +6,11 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import { MessageService } from 'primeng/api';
-import { BaseComponent } from '../base/base.component';
+import { BaseComponent } from '../../base/base.component';
 import { RouterLink } from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { UsuarioService } from '../../services/usuario.service';
-import { ConfirmacionDialogComponent } from '../confirm-dialog/confirmacion-dialog.component';
+import { UsuarioService } from '../../../services/usuario.service';
+import { ConfirmacionDialogComponent } from '../../confirm-dialog/confirmacion-dialog.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @Component({

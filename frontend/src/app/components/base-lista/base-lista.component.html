@@ -1,0 +1,14 @@
+<app-base>
+    <div class="flex flex-column w-9">
+        <div class="flex justify-content-center mt-4 mb-4">
+            <span class="h1 uppercase">{{title}}</span>
+        </div>
+        <ng-container *ngIf="isValid; then usuarios; else tareas"></ng-container>
+        <ng-template #usuarios>
+            <app-lista-usuarios-new [title]=prop />
+        </ng-template>
+        <ng-template #tareas>
+            <app-lista-tareas [title]=prop />
+        </ng-template>
+    </div>
+</app-base>

@@ -13,12 +13,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogRecord } from '../activity-records/activity-record.component';
 import { MatInputModule } from '@angular/material/input';
+import { ToolbarModule } from 'primeng/toolbar';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
   selector: 'app-actividades-admin',
   standalone: true,
-  imports: [BaseComponent,ButtonModule,MatFormFieldModule,MatInputModule,MatTableModule,RouterLink,MatIconModule,MatPaginatorModule,MatSortModule,ButtonGroupModule],
+  imports: [BaseComponent,
+    ButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    RouterLink,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    ButtonGroupModule,
+    ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule],
   templateUrl: './actividades-empleado.component.html',
   styleUrl: './actividades-empleado.component.scss'
 })

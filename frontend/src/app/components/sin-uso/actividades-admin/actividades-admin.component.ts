@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { BaseComponent } from "../base/base.component";
-import { ActivityService } from "../../services/activity.service";
+import { BaseComponent } from "../../base/base.component";
+import { ActivityService } from "../../../services/activity.service";
 import { RouterLink } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -9,10 +9,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { DialogRecord } from '../activity-records/activity-record.component';
+import { DialogRecord } from '../../activity-records/activity-record.component';
 import { MatButtonModule } from '@angular/material/button';
 
-import {CreateActividadDialog} from '../create-actividad-dialog/create-actividad-dialog.component';
+import {CreateActividadDialog} from '../../create-actividad-dialog/create-actividad-dialog.component';
 
 @Component({
   selector: 'app-actividades-admin',

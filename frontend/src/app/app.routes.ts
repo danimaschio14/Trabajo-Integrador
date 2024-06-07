@@ -1,9 +1,8 @@
-import { ActividadesAdminComponent } from './components/actividades-admin/actividades-admin.component';
 import { ActividadesEmployeeComponent } from './components/actividades-empleado/actividades-empleado.component';
-import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
+import { BaseListaComponent } from './components/base-lista/base-lista.component';
 import { CreateUsuarioComponent } from './components/create-usuario/create-usuario.component';
 import { HomeComponent } from './components/home/home.component';
-import { ListaUsuarioComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { ListaUsuarioComponent } from './components/sin-uso/lista-usuarios/lista-usuarios.component';
 import { LoginComponent } from './components/login/login.component';
 import { NuevaActividadComponent } from './components/create-actividad-nav/create-actividad-nav.component';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
@@ -28,7 +27,12 @@ export const routes: Routes = [
   },
   {
     path: 'admin/tareas',
-    component: ActividadesAdminComponent,
+    component: BaseListaComponent,
+    canActivate: [adminGuard],
+  }, 
+   {
+    path: 'admin/usuarios',
+    component: BaseListaComponent,
     canActivate: [adminGuard],
   },
   {
@@ -41,11 +45,11 @@ export const routes: Routes = [
     component: ActividadesEmployeeComponent,
     canActivate: [employeeGuard],
   },
-  {
-    path: 'usuarios',
-    component: ListaUsuarioComponent,
-    canActivate: [adminGuard],
-  },
+  // {
+  //   path: 'usuarios',
+  //   component: ListaUsuarioComponent,
+  //   canActivate: [adminGuard],
+  // },
   {
     path: 'create-usuario',
     component: CreateUsuarioComponent,

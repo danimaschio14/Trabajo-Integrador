@@ -1,4 +1,5 @@
-<button class="btn2" (click)="showDialog()">{{btnText}}</button>
+<p-button *ngIf="btnText=='Agregar'" icon="pi pi-plus" class="mr-2" (click)="showDialog()" />
+<p-button *ngIf="btnText=='Editar'" icon="pi pi-user-edit" class="mr-2" (click)="showDialog()"/>
 <p-dialog
     header={{title}}
     [modal]="true"

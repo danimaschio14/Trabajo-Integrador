@@ -11,6 +11,8 @@ main {
   padding: 1rem;
   padding-bottom: 10rem;
   flex-direction: column;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 #container-wrap{
@@ -24,6 +26,9 @@ main {
       height: 60vh;
       top: 20vh;
       bottom: 20vh;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: 5rem;
     }
   }
 

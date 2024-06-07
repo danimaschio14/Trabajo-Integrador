@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
-import { OldFooterComponent } from '../old-footer/old-footer.component';
+import { OldFooterComponent } from '../sin-uso/old-footer/old-footer.component';
 import { ToastModule } from 'primeng/toast';
 
 @Component({

@@ -1,16 +1,23 @@
 <app-base>
-  <div>
-    <div>
-            <span class="h3">Lista de Actividades</span>
-        </div> 
-        <mat-form-field>
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>  
-        <div class="mat-elevation-z8">
+  <div class="flex flex-column w-9">
+    <div class="flex justify-content-center mt-4 mb-4">
+        <span class="h1 uppercase">Lista de tareas asignadas</span>
+    </div>
+    <!--filtros-->
+    <div class="flex flex-column justify-content-center mb-4">
+      <div class="flex-1 mt-4">
+          <p-toolbar class="flex-1">
+              <div class="flex-1 p-toolbar-group-center gap-5">
+                  <span class="p-input-icon-left">
+                      <!-- <i class="pi pi-search"></i> -->
+                      <input pInputText  (keyup)="applyFilter($event)" #input placeholder="Filtrar..." />
+                  </span>
+              </div>
+          </p-toolbar>
+      </div>
+      <!--Listado-->
+      <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
-        
-         
           <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef> Titulo </th>
             <td mat-cell *matCellDef="let element"> {{element.title}} </td>
@@ -53,6 +60,9 @@
                        showFirstLastButtons
                        aria-label="Select page of periodic elements">
         </mat-paginator>
+    </div>
+
+    <!--fin-->
     </div>
   </div>
 </app-base>

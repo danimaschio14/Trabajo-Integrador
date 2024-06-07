@@ -1,10 +1,13 @@
 <app-base>
 <div>
+  
   <div>
       <span class="h3">Lista de Actividades</span>
       <i (click)="exportToCSV()" class="fa-solid fa-file-arrow-down"  matTooltip="Descargar CSV"></i>
       <create-activity-dialog/>
   </div>
+ 
+ 
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input>
