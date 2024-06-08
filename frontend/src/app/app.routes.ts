@@ -1,10 +1,11 @@
 import { ActividadesEmployeeComponent } from './components/actividades-empleado/actividades-empleado.component';
 import { BaseListaComponent } from './components/base-lista/base-lista.component';
+import { CreateBaseNavComponent } from './components/create-base-nav/create-base-nav.component';
+import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { CreateUsuarioComponent } from './components/create-usuario/create-usuario.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListaUsuarioComponent } from './components/sin-uso/lista-usuarios/lista-usuarios.component';
 import { LoginComponent } from './components/login/login.component';
-import { NuevaActividadComponent } from './components/create-actividad-nav/create-actividad-nav.component';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';
 import { Routes } from '@angular/router';
@@ -30,9 +31,19 @@ export const routes: Routes = [
     component: BaseListaComponent,
     canActivate: [adminGuard],
   }, 
+  {
+    path: 'admin/tareas/create',
+    component: CreateBaseNavComponent,
+    canActivate: [adminGuard],
+  }, 
    {
     path: 'admin/usuarios',
     component: BaseListaComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'admin/usuarios/create',
+    component: CreateUsuarioComponent,
     canActivate: [adminGuard],
   },
   {
@@ -45,19 +56,9 @@ export const routes: Routes = [
     component: ActividadesEmployeeComponent,
     canActivate: [employeeGuard],
   },
-  // {
-  //   path: 'usuarios',
-  //   component: ListaUsuarioComponent,
-  //   canActivate: [adminGuard],
-  // },
-  {
-    path: 'create-usuario',
-    component: CreateUsuarioComponent,
-    canActivate: [adminGuard],
-  },
   {
     path: 'create-actividad',
-    component: NuevaActividadComponent,
+    component: CreateBaseNavComponent,
   },
   {
     path: 'edit-usuario/:id',

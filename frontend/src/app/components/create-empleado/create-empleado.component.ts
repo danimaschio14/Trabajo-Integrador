@@ -2,19 +2,19 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { BaseComponent } from '../../base/base.component';
+import { BaseComponent } from '../base/base.component';
 import { MessageService } from 'primeng/api';
 import { NgIf } from '@angular/common';
-import { PrincipioComponent } from '../../principio/principio.component';
-import { RolesEnum } from '../../../enums/roles.enum';
+import { PrincipioComponent } from '../sin-uso/principio/principio.component';
+import { RolesEnum } from '../../enums/roles.enum';
 import { ToastModule } from 'primeng/toast';
-import { UserStatus } from '../../../enums/status.enum';
-import { UsuarioService } from '../../../services/usuario.service';
+import { UserStatus } from '../../enums/status.enum';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-create-empleado',
   standalone: true,
-  imports: [PrincipioComponent, BaseComponent,ReactiveFormsModule,RouterLink,NgIf,ToastModule],
+  imports: [PrincipioComponent,ReactiveFormsModule,RouterLink,NgIf,ToastModule],
   templateUrl: './create-empleado.component.html',
   styleUrls: ['./create-empleado.component.scss'],
 })

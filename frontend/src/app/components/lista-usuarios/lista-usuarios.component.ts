@@ -12,13 +12,13 @@ import { RolesEnum } from '../../enums/roles.enum';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-lista-usuarios-new',
+  selector: 'app-lista-usuarios',
   standalone: true,
   imports: [ImportsList],
-  templateUrl: './lista-usuarios-new.component.html',
-  styleUrl: './lista-usuarios-new.component.scss'
+  templateUrl: './lista-usuarios.component.html',
+  styleUrl: './lista-usuarios.component.scss'
 })
-export class ListaUsuariosNewComponent implements OnInit {
+export class ListaUsuariosComponent implements OnInit {
   empleados: any[]=[];
   @Input() title : String = "";
 

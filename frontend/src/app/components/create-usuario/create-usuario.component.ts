@@ -1,13 +1,12 @@
-import { Component,OnInit} from '@angular/core';
-import { BaseComponent } from '../base/base.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { BaseComponent } from '../base/base.component';
 import { MessageService } from 'primeng/api';
+import { NgIf } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../../services/usuario.service';
-
-
 
 @Component({
   selector: 'app-create-usuario',
@@ -78,7 +77,7 @@ export class CreateUsuarioComponent implements OnInit{
        
       });
       setTimeout(() => {
-        this.router.navigate(['usuarios']);
+        this.router.navigate(['/admin/usuarios']);
       }, 1000);
     },
     (error) => {
@@ -112,7 +111,7 @@ export class CreateUsuarioComponent implements OnInit{
       });
 
       setTimeout(() => {
-        this.router.navigate(['usuarios']);
+        this.router.navigate(['/admin/usuarios']);
       }, 1000);
        
       },

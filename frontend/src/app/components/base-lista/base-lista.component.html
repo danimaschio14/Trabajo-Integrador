@@ -5,7 +5,7 @@
         </div>
         <ng-container *ngIf="isValid; then usuarios; else tareas"></ng-container>
         <ng-template #usuarios>
-            <app-lista-usuarios-new [title]=prop />
+            <app-lista-usuarios [title]=prop />
         </ng-template>
         <ng-template #tareas>
             <app-lista-tareas [title]=prop />

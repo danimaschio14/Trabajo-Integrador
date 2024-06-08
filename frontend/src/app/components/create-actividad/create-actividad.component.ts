@@ -1,15 +1,16 @@
-import { MessageService } from 'primeng/api';
-import { Component,Input,OnInit} from '@angular/core';
-import { BaseComponent } from '../base/base.component';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
-import { ToastModule } from 'primeng/toast';
+
 import { ActivityService } from '../../services/activity.service';
-import { UsuarioService } from '../../services/usuario.service';
-import { DialogModule } from 'primeng/dialog';
+import { BaseComponent } from '../base/base.component';
 import { ButtonModule } from 'primeng/button';
 import { CreateActividadDialog } from '../create-actividad-dialog/create-actividad-dialog.component';
+import { DialogModule } from 'primeng/dialog';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'create-activity',
@@ -33,7 +34,7 @@ export class CreateActividad implements OnInit{
     private router: Router,
     private usuarioService: UsuarioService,
     private messageService:MessageService,
-    private dialog : CreateActividadDialog
+    //private dialog : CreateActividadDialog
 
     ) {
       this.createActividad= this.fb.group({
@@ -136,7 +137,7 @@ export class CreateActividad implements OnInit{
   }
 
   closeForm(){
-    this.dialog.visible = false;
+    //this.dialog.visible = false;
   }
 
   refrescarPagina() {
