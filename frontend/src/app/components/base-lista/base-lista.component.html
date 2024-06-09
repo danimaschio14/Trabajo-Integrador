@@ -3,7 +3,7 @@
         <div class="flex justify-content-center mt-4 mb-4">
             <span class="h1 uppercase">{{title}}</span>
         </div>
-        <ng-container *ngIf="isValid; then usuarios; else tareas"></ng-container>
+        <ng-container *ngIf="isValid; then usuarios; else tareas" />
         <ng-template #usuarios>
             <app-lista-usuarios [title]=prop />
         </ng-template>

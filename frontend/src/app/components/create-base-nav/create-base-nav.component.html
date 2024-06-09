@@ -1,10 +1,15 @@
 <app-base>
-    <div class="flex flex-column w-9">
+    <div class="flex flex-column w-7">
         <div class="flex justify-content-center mt-4 mb-4">
-            <span class="h1 uppercase">Crear nueva tarea</span>
+            <span class="h1 uppercase">{{title}}</span>
         </div>
-        <div>
-            <app-create-tarea />
-        </div>
+            <!--no funca esto -->
+            <ng-container *ngIf="isTarea; then tarea; else usuario" />
+                <ng-template #tarea>
+                    <app-create-tarea />
+                </ng-template>
+                <ng-template #usuario>
+                    //sino create-usuario
+                </ng-template>
     </div>
 </app-base>

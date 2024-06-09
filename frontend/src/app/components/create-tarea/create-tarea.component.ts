@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgFor, NgIf } from '@angular/common';
 
 import { ActivityService } from '../../services/activity.service';
-import { BaseComponent } from '../base/base.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../../services/usuario.service';
@@ -13,7 +13,7 @@ import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'app-create-tarea',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, ToastModule, DialogModule, ButtonModule],
+  imports: [ReactiveFormsModule,DropdownModule, NgIf, NgFor, ToastModule, DialogModule, ButtonModule],
   templateUrl: './create-tarea.component.html',
   styleUrl: './create-tarea.component.scss'
 })
@@ -21,13 +21,14 @@ export class CreateTareaComponent implements OnInit {
   submitted = false;
   createActividad: FormGroup;
   usuarios: any[] = []
-
+  priorities: any[] = []
+  types : any[] = []
+  
   constructor(
     private fb: FormBuilder,
     private actividadService: ActivityService,
     private usuarioService: UsuarioService,
     private messageService: MessageService,
-
   ) {
     this.createActividad = this.fb.group({
       title: ["", Validators.required],
@@ -35,12 +36,20 @@ export class CreateTareaComponent implements OnInit {
       priority: ["", Validators.required],
       status: [""],
       user: ["", Validators.required]
-    })
-  }
-
-  ngOnInit(): void {
+    }),
+    this.priorities = [ 
+      {name: 'Baja', value:"LOW"},
+      {name: 'Media', value:"MEDIUM"},
+      {name: 'Alta', value:"HIGH"}];
+    this.types = [
+      {name: 'Gestion', value: 'MANAGMENT'},
+      {name: 'Logistica', value: 'LOGISTIC'},
+      {name: 'Servicio al cliente', value: 'CUSTOMER SERVICE'}
+    ]
     this.getUsers()
   }
+
+  ngOnInit(): void {  }
 
   addEditActividad() {
     this.submitted = true;
@@ -53,7 +62,8 @@ export class CreateTareaComponent implements OnInit {
   getUsers() {
     this.usuarioService.getAllUsers().subscribe(data => {
       data.forEach((element: any) => {
-        this.usuarios.push({ element, ...element })
+        this.usuarios.push({name: element.email, value: element.id })
+        //this.usuarios.push({ element, ...element })
       })
     })
   }
@@ -72,6 +82,7 @@ export class CreateTareaComponent implements OnInit {
         summary: 'Actividad agregada con éxito',
         detail: 'La actividad se ha registrado correctamente.',
       });
+      
       this.refrescarPagina()
     }, (error) => {
       this.messageService.add({
@@ -80,10 +91,12 @@ export class CreateTareaComponent implements OnInit {
         detail: error.error.message,
       });
     }
-    );
+    )
+    ;
   }
 
   refrescarPagina() {
     location.reload();
   }
+
 }

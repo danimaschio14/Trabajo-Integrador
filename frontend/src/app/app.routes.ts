@@ -1,12 +1,9 @@
 import { ActividadesEmployeeComponent } from './components/actividades-empleado/actividades-empleado.component';
 import { BaseListaComponent } from './components/base-lista/base-lista.component';
 import { CreateBaseNavComponent } from './components/create-base-nav/create-base-nav.component';
-import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { CreateUsuarioComponent } from './components/create-usuario/create-usuario.component';
 import { HomeComponent } from './components/home/home.component';
-import { ListaUsuarioComponent } from './components/sin-uso/lista-usuarios/lista-usuarios.component';
 import { LoginComponent } from './components/login/login.component';
-import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';
 import { Routes } from '@angular/router';
 import { adminGuard } from './guards/admin.guard';
@@ -69,10 +66,10 @@ export const routes: Routes = [
   //   path: 'create-user',
   //   component: CreateEmpleadoComponent,
   // },
-  {
-    path: 'create-usuario-admin',
-    component: NuevoUsuarioComponent,
-  },
+  // {
+  //   path: 'create-usuario-admin',
+  //   component: NuevoUsuarioComponent,
+  // },
   {
     path: '**',
     redirectTo: 'login'
