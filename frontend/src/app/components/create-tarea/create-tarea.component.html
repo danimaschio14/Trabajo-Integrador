@@ -4,7 +4,7 @@
 
         <!--inputs-->
         <div class="flex-1">
-            
+
             <div class="flex flex-column mb-3 w-12">
                 <span class="h4 mb-2 text-primary">Titulo</span>
                 <input class="form-control" type="text" formControlName="title" placeholder="Titulo">
@@ -14,23 +14,20 @@
                 <div class="flex-1 ">
                     <span class="h4 mb-2 text-primary">Tipo</span>
                     <p-dropdown class="form-dropdown" placeholder="Selecciona un tipo" formControlName="type"
-                        [options]="types" optionLabel="name" [showClear]="true" p-dropdown-label="Tipo"
-                        optionValue="value" />
+                        [options]="types" [showClear]="true" p-dropdown-label="Tipo" />
                 </div>
 
                 <div class="flex-1">
                     <span class="h4 mb-2 text-primary">Prioridad</span>
                     <p-dropdown class="form-dropdown" placeholder="Selecciona una prioridad" formControlName="priority"
-                        [options]="priorities" optionLabel="name" [showClear]="true" p-dropdown-label="Prioridad"
-                        optionValue="value" />
+                        [options]="priorities" [showClear]="true" p-dropdown-label="Prioridad" />
                 </div>
             </div>
 
             <div class="flex flex-column mb-3 w-12">
                 <span class="h4 mb-2 text-primary">Responsable</span>
                 <p-dropdown placeholder="Selecciona un responsable" formControlName="user" [options]="usuarios"
-                    optionLabel="name" optionValue="value" p-dropdown-label="Responsable" [showClear]="true"
-                    autoWidth="false" [style]="{'width':'100%'}" />
+                    p-dropdown-label="Responsable" [showClear]="true" autoWidth="false" [style]="{'width':'100%'}" />
             </div>
         </div>
         <!--btn-->

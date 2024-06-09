@@ -23,7 +23,7 @@ export class CreateTareaComponent implements OnInit {
   usuarios: any[] = []
   priorities: any[] = []
   types : any[] = []
-  
+
   constructor(
     private fb: FormBuilder,
     private actividadService: ActivityService,
@@ -37,14 +37,14 @@ export class CreateTareaComponent implements OnInit {
       status: [""],
       user: ["", Validators.required]
     }),
-    this.priorities = [ 
-      {name: 'Baja', value:"LOW"},
-      {name: 'Media', value:"MEDIUM"},
-      {name: 'Alta', value:"HIGH"}];
+    this.priorities = [
+      {label: 'Baja', value:"LOW"},
+      {label: 'Media', value:"MEDIUM"},
+      {label: 'Alta', value:"HIGH"}];
     this.types = [
-      {name: 'Gestion', value: 'MANAGMENT'},
-      {name: 'Logistica', value: 'LOGISTIC'},
-      {name: 'Servicio al cliente', value: 'CUSTOMER SERVICE'}
+      {label: 'Gestion', value: 'MANAGMENT'},
+      {label: 'Logistica', value: 'LOGISTIC'},
+      {label: 'Servicio al cliente', value: 'CUSTOMER SERVICE'}
     ]
     this.getUsers()
   }
@@ -60,10 +60,10 @@ export class CreateTareaComponent implements OnInit {
   }
 
   getUsers() {
+    this.usuarios = [{label: "Selecciona un responsable", value: null}];
     this.usuarioService.getAllUsers().subscribe(data => {
       data.forEach((element: any) => {
-        this.usuarios.push({name: element.email, value: element.id })
-        //this.usuarios.push({ element, ...element })
+        this.usuarios.push({label: element.email, value: element.id })
       })
     })
   }
@@ -82,7 +82,7 @@ export class CreateTareaComponent implements OnInit {
         summary: 'Actividad agregada con éxito',
         detail: 'La actividad se ha registrado correctamente.',
       });
-      
+
       this.refrescarPagina()
     }, (error) => {
       this.messageService.add({
