@@ -1,6 +1,6 @@
 import { BaseComponent } from '../../base/base.component';
 import { Component } from '@angular/core';
-import { CreateUsuarioComponent } from '../../create-usuario/create-usuario.component';
+import { CreateUsuarioComponent } from '../create-usuario/create-usuario.component';
 
 @Component({
   selector: 'app-nuevo-usuario',

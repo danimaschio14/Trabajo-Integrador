@@ -4,10 +4,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 import { ActivityService } from '../../services/activity.service';
-import { BaseComponent } from '../base/base.component';
 import { ButtonModule } from 'primeng/button';
 import { CreateActividadDialog } from '../create-actividad-dialog/create-actividad-dialog.component';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../../services/usuario.service';
@@ -15,7 +15,7 @@ import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'create-activity',
   standalone: true,
-  imports: [BaseComponent, ReactiveFormsModule, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateActividadDialog],
+  imports: [RouterLink,DropdownModule, ReactiveFormsModule, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateActividadDialog],
   templateUrl: './create-actividad.component.html',
   styleUrls: ['./create-actividad.component.scss']
 })
@@ -24,8 +24,11 @@ export class CreateActividad implements OnInit{
   usuarios: any[]=[]
   createActividad: FormGroup;
   submitted=false;
-  titulo= "Agregar Tarea"
+  priorities: any[] = []
+  types : any[] = []
+  status : any[] = []
   @Input() id:number = 0;
+  @Input() title:string = 'Agregar Tarea';
 
   constructor(
 
@@ -43,12 +46,27 @@ export class CreateActividad implements OnInit{
       priority:["",Validators.required],
       status:[""],
       user:["",Validators.required]
-    })
+    });
+    this.priorities = [
+      {label: 'Baja', value:"LOW"},
+      {label: 'Media', value:"MEDIUM"},
+      {label: 'Alta', value:"HIGH"}];
+    this.types = [
+      {label: 'Gestion', value: 'MANAGMENT'},
+      {label: 'Logistica', value: 'LOGISTIC'},
+      {label: 'Servicio al cliente', value: 'CUSTOMER SERVICE'}
+    ];
+    this.status = [
+      {label: 'Pendiente', value: 'PENDING'},
+      {label: 'En progreso', value: 'IN PROGRESS'},
+      {label: 'Terminado', value: 'FINISHED'},
+      {label: 'Cancelado', value: 'CANCELED'}
+    ];
+    this.getUsers()
   }
 
   ngOnInit(): void {
     this.loadActividad()
-    this.getUsers()
   }
 
   addEditActividad(){
@@ -77,7 +95,7 @@ export class CreateActividad implements OnInit{
     this.actividadService.updateActivity(id, actividad).then((data) => {
       this.messageService.add({
         severity: 'success', // Puedes usar 'success', 'info', 'warn' o 'error'
-        summary: 'Actividad agregada con éxito',
+        summary: 'Tarea agregada con éxito',
         detail: 'La actividad se ha registrado correctamente.',
       });
       this.closeForm()
@@ -115,7 +133,7 @@ export class CreateActividad implements OnInit{
 
   loadActividad(){
     if(this.id !== 0){
-      this.titulo = "Editar Actividad"
+      this.title = "Editar tarea"
       this.actividadService.getActivity(this.id).subscribe(data =>{
         this.createActividad.setValue({
           title : data["title"],
@@ -128,10 +146,11 @@ export class CreateActividad implements OnInit{
     }
   }
 
-  getUsers(){
+  getUsers() {
+    this.usuarios = [{label: "Selecciona un responsable", value: null}];
     this.usuarioService.getAllUsers().subscribe(data => {
-      data.forEach((element: any) =>{
-        this.usuarios.push({element,...element})
+      data.forEach((element: any) => {
+        this.usuarios.push({label: element.email, value: element.id })
       })
     })
   }
