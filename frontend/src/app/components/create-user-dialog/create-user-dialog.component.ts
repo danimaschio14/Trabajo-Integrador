@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+
 import { BaseComponent } from '../base/base.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
-import { ToastModule } from 'primeng/toast';
-import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { CreateUsuarioComponent } from '../create-usuario/create-usuario.component';
-
+import { DialogModule } from 'primeng/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'create-user-dialog',

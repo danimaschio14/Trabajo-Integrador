@@ -5,6 +5,8 @@ import { BaseComponent } from '../base/base.component';
 import { ButtonModule } from 'primeng/button';
 import {CreateActividad} from '../create-actividad/create-actividad.component'
 import { DialogModule } from 'primeng/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
@@ -12,7 +14,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'create-activity-dialog',
   standalone: true,
-  imports: [BaseComponent, ReactiveFormsModule, RouterLink, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateActividad],
+  imports: [MatButtonModule,MatTooltipModule,BaseComponent, ReactiveFormsModule, RouterLink, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateActividad],
   templateUrl: './create-actividad-dialog.component.html',
   styleUrls: ['./create-actividad-dialog.component.scss']
 })

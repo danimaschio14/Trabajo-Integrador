@@ -9,11 +9,13 @@ import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
 
 import { RecordService } from '../../services/record.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'dialog-record',
     standalone: true,
-    imports: [NgFor, NgIf, DialogModule, ButtonModule, CardModule, TagModule, PanelModule, AvatarModule],
+    imports: [MatButtonModule,MatTooltipModule, NgFor, NgIf, DialogModule, ButtonModule, CardModule, TagModule, PanelModule, AvatarModule],
     templateUrl: './activity-record.component.html',
     styleUrl: './activity-record.component.scss',
     providers: [

@@ -1,7 +1,7 @@
 import { ActividadesEmployeeComponent } from './components/actividades-empleado/actividades-empleado.component';
 import { BaseListaComponent } from './components/base-lista/base-lista.component';
 import { CreateBaseNavComponent } from './components/create-base-nav/create-base-nav.component';
-import { CreateUsuarioComponent } from './components/sin-uso/create-usuario/create-usuario.component';
+import { CreateUsuarioComponent } from './components/create-usuario/create-usuario.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';

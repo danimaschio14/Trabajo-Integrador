@@ -8,7 +8,7 @@
                 </span>
                 <div class="p-toolbar-group-start">
                     <create-activity-dialog/>
-                    <p-button *ngIf="title!=='usuarios'" icon="pi pi-print" class="mr-2" (click)="exportToCSV()"/>
+                    <p-button *ngIf="title!=='usuarios'" icon="pi pi-print" class="mr-2" (click)="exportToCSV()" severity="contrast"/>
                 </div>
             </div>
         </p-toolbar>
@@ -48,12 +48,10 @@
       <ng-container matColumnDef="registry">
         <th mat-header-cell *matHeaderCellDef> Mostrar Registro </th>
         <td mat-cell *matCellDef="let element">
-          <!--<button class="pointer" (click)="showDialog()" style="color: #ffc107;"  matTooltip="Editar Tarea">
-            <mat-icon>edit</mat-icon>
-          </button>-->
+
           <create-activity-dialog [activityId]=element.id/>
-  
           <dialog-record [activityId]=element.id />
+
         </td>
       </ng-container>
   
@@ -61,8 +59,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
+                   showFirstLastButtons>
     </mat-paginator>
   </div>
 

@@ -2,11 +2,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { BaseComponent } from '../../base/base.component';
+import { BaseComponent } from '../base/base.component';
 import { MessageService } from 'primeng/api';
 import { NgIf } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
-import { UsuarioService } from '../../../services/usuario.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-create-usuario',
