@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { BaseComponent } from '../base/base.component';
 import { CreateTareaComponent } from '../create-tarea/create-tarea.component';
+import { CreateUsuarioNavComponent } from '../create-usuario-nav/create-usuario-nav.component';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-base-nav',
   standalone: true,
-  imports: [BaseComponent, CreateTareaComponent, NgIf],
+  imports: [BaseComponent, CreateTareaComponent, NgIf, CreateUsuarioNavComponent],
   templateUrl: './create-base-nav.component.html',
   styleUrl: './create-base-nav.component.scss'
 })

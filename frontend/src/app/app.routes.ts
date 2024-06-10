@@ -40,7 +40,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/usuarios/create',
-    component: CreateUsuarioComponent,
+    component: CreateBaseNavComponent,
     canActivate: [adminGuard],
   },
   {
@@ -62,14 +62,6 @@ export const routes: Routes = [
     component: CreateUsuarioComponent,
     canActivate: [adminGuard],
   },
-  // {
-  //   path: 'create-user',
-  //   component: CreateEmpleadoComponent,
-  // },
-  // {
-  //   path: 'create-usuario-admin',
-  //   component: NuevoUsuarioComponent,
-  // },
   {
     path: '**',
     redirectTo: 'login'

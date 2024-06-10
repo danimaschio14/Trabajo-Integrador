@@ -7,13 +7,14 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
+import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-create-tarea',
   standalone: true,
-  imports: [ReactiveFormsModule,DropdownModule, NgIf, NgFor, ToastModule, DialogModule, ButtonModule],
+  imports: [RouterLink,ReactiveFormsModule,DropdownModule, NgIf, NgFor, ToastModule, DialogModule, ButtonModule],
   templateUrl: './create-tarea.component.html',
   styleUrl: './create-tarea.component.scss'
 })

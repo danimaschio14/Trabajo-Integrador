@@ -9,18 +9,18 @@
                 <span class="h4 mb-2 text-primary">Titulo</span>
                 <input class="form-control" type="text" formControlName="title" placeholder="Titulo">
             </div>
-            <div class="flex justify-content-around p-fluid mb-3">
+            <div class="flex justify-content-around p-fluid mb-3 gap-4">
 
                 <div class="flex-1 ">
                     <span class="h4 mb-2 text-primary">Tipo</span>
-                    <p-dropdown class="form-dropdown" placeholder="Selecciona un tipo" formControlName="type"
-                        [options]="types" [showClear]="true" p-dropdown-label="Tipo" />
+                    <p-dropdown placeholder="Selecciona un tipo" formControlName="type" [options]="types"
+                        [showClear]="true" p-dropdown-label="Tipo" autoWidth="false" [style]="{'width':'100%'}" />
                 </div>
 
                 <div class="flex-1">
                     <span class="h4 mb-2 text-primary">Prioridad</span>
-                    <p-dropdown class="form-dropdown" placeholder="Selecciona una prioridad" formControlName="priority"
-                        [options]="priorities" [showClear]="true" p-dropdown-label="Prioridad" />
+                    <p-dropdown placeholder="Selecciona una prioridad" formControlName="priority" [options]="priorities"
+                        [showClear]="true" p-dropdown-label="Prioridad" autoWidth="false" [style]="{'width':'100%'}" />
                 </div>
             </div>
 
@@ -31,9 +31,10 @@
             </div>
         </div>
         <!--btn-->
-        <div class="mt-3">
-            <!-- <button type="button" class="btn btn-secondary btn-lg mr-3" >Volver</button> -->
-            <button type="submit" class="btn btn-dark btn-lg">Confirmar</button>
+        <div class="mt-3 flex justify-content-center gap-4">
+            <button pButton pRipple type="button" class="p-button-secondary" routerLink="/admin/tareas"
+                [raised]="true" icon="pi pi-times" label="Volver"></button>
+            <button pButton pRipple type="submit" class="p-button-succes" [raised]="true" icon="pi pi-check" label="Confirmar" severity="success"></button>
         </div>
 
     </form>
