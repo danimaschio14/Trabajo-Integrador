@@ -12,14 +12,15 @@ import { NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToolbarModule } from 'primeng/toolbar';
+import { CreateUserdDialog } from '../create-user-dialog/create-user-dialog.component';
 
 @NgModule({
     imports: [NgIf, MatTableModule, MatPaginatorModule,
         MatSortModule, MatIconModule, 
         RouterLink, MatTooltipModule, ToolbarModule, 
-        ButtonModule, SplitButtonModule, InputTextModule, MatFormFieldModule, MatInputModule],
+        ButtonModule, SplitButtonModule, InputTextModule, MatFormFieldModule, MatInputModule,CreateUserdDialog],
     exports: [NgIf, MatTableModule, MatPaginatorModule,
-        MatSortModule, MatIconModule, RouterLink, MatTooltipModule, ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, MatFormFieldModule, MatInputModule],
+        MatSortModule, MatIconModule, RouterLink, MatTooltipModule, ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, MatFormFieldModule, MatInputModule,CreateUserdDialog],
     providers: []
 })
 export class ImportsList{}

@@ -8,8 +8,7 @@
                     <input pInputText matInput (keyup)="applyFilter($event)" #input placeholder="Filtrar..." />
                 </span>
                 <div class="p-toolbar-group-start">
-                    <!--reemplazar por pop up como en tareas-->
-                    <p-button icon="pi pi-plus" class="mr-2"/>
+                  <create-user-dialog/>
                 </div>
             </div>
         </p-toolbar>
@@ -49,14 +48,18 @@
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element">
                 
-                <a class="pointer" [routerLink]="['/edit-usuario/',element.id]" style="color: #ffc107;"  matTooltip="Editar Usuario">
+                <!-- <a class="pointer" [routerLink]="['/edit-usuario/',element.id]" style="color: #ffc107;"  matTooltip="Editar Usuario">
                   <mat-icon>edit</mat-icon>
                 </a>
           
                 <a class="pointer" (click)="deleteUsuario(element.id)" style="color: #ffc107;" matTooltip="Eliminar Usuario">
                   <mat-icon>delete</mat-icon>
-                </a>
-          
+                </a> -->
+                
+                <create-user-dialog [userId]=element.id/>
+                <a icon="pi pi-plus" (click)="deleteUsuario(element.id)"  matTooltip="Eliminar Usuario">
+                        <mat-icon>delete</mat-icon>
+                      </a>
               </td>
             </ng-container>
           
