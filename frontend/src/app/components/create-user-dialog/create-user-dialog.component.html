@@ -1,0 +1,11 @@
+<p-button *ngIf="btnText=='Agregar'" icon="pi pi-plus" class="mr-2" (click)="showDialog()" />
+<p-button *ngIf="btnText=='Editar'" icon="pi pi-user-edit" class="mr-2" (click)="showDialog()"/>
+<p-dialog
+    header={{title}}
+    [modal]="true"
+    [draggable]="false"
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <app-create-usuario [id]=this.userId/>
+</p-dialog>
