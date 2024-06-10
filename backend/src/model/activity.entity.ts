@@ -22,7 +22,6 @@ export class Activity{
     @Column({ type: 'enum', enum: ActivityType})
     type : ActivityType
         
-    //@Expose()
     @OneToMany( () => ActivityRecord, record => record.activity)
     records : ActivityRecord[]
 }

@@ -19,11 +19,7 @@ export class AuthService {
   ) { }
 
   async login(loginDto: LoginDto) {
-    // const user: User = await this.userepo.findOne({
-    //   where: {
-    //     email: loginDto.email,
-    //   },
-    // });
+
     const user = await this.usuariosService.findOneByEmail(loginDto.email)
 
     if (!user) {

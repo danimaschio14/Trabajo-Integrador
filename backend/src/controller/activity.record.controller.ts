@@ -13,30 +13,10 @@ export class RecordController {
     private activityService: ActivityService
   ) {}
 
-  
-  // @ApiBearerAuth()
-  // @Roles([UserRole.ADMIN,UserRole.EMPLOYEE])
-  // @UseGuards(AuthGuard)
-  /*
-  @Get(':activityId')
-  async getRecordsByActivityId(@Param('activityId') activityId: number) {
-    try {
-      const records = await this.activityRecordService.getRecordsByActivityId(activityId, "ASC");
-      return { success: true, data: records };
-    } catch (error) {
-      return { success: false, message: 'Error fetching records for activity' };
-    }
-  }
-*/
-
-   // @ApiBearerAuth()
-  //@Roles([UserRole.ADMIN])
-  //@UseGuards(AuthGuard)
   @Get(':activityId/:order')
   async getRecordsByActivityId(@Param('activityId') activityId: number, @Param('order') order?:string) {
     try {
-      // if(order != "ASC")
-      //   order = "ASC"
+
       let records = await this.activityRecordService.getRecordsByActivityId(activityId, order);
 
       const activity = await this.activityService.getActivityById(activityId);
@@ -53,7 +33,6 @@ export class RecordController {
         }
       }
       return { 
-        //success: true, 
         title: activity.title,
         type: activity.type,
         priority: lastRecord.priority,

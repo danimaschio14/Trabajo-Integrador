@@ -114,7 +114,6 @@ export class CreateActividad implements OnInit{
       userId : Number(this.createActividad.value.user)
     }
     this.actividadService.addActivity(actividad).then((data) => {
-      // this.router.navigate(["usuarios"]),
       this.messageService.add({
         severity: 'success', // Puedes usar 'success', 'info', 'warn' o 'error'
         summary: 'Actividad agregada con éxito',

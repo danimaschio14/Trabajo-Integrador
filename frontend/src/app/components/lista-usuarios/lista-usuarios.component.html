@@ -48,7 +48,7 @@
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element">
                 <create-user-dialog [userId]=element.id matTooltip="Editar Usuario"/>
-                <button pButton pRipple type="button" class="p-button-danger mr-2" severity="danger" routerLink="/admin/tareas"
+                <button pButton pRipple type="button" class="p-button-danger mr-2" severity="danger" routerLink="/admin/usuarios"
                 icon="pi pi-trash" (click)="deleteUsuario(element.id)"  matTooltip="Eliminar Usuario" >
                 </button>
               </td>

@@ -20,7 +20,6 @@ export class ListaTareasComponent implements OnInit {
 
   constructor(
     private activityService:ActivityService,
-    //private dialog : CreateActividadDialog
   ){}
 
 
@@ -36,7 +35,6 @@ export class ListaTareasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.dialog.visible = false;
     this.getActivity()
   }
 
@@ -73,11 +71,5 @@ export class ListaTareasComponent implements OnInit {
         // Libera el objeto URL
         window.URL.revokeObjectURL(url);
       }
-
-
-  // showDialog() {
-  //   this.dialog.visible = true;
-  // }
-
-  
+ 
 }

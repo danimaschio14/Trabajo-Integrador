@@ -17,8 +17,6 @@ export class AuthController {
 
 
   @Post("register")
-  // @Roles([UserRole.ADMIN])
-  // @UseGuards(AuthGuard)
   register(@Body() {name ,lastName,email,password,role,status}: CreatUserDto) {
     return  this.authService.register({name ,lastName,email,password,role,status});
     }

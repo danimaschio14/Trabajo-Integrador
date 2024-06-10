@@ -5,7 +5,6 @@ import { UpdateActivityDto } from 'src/dto/update-activity.dto';
 import { ActivityStatus } from 'src/enum/activity.status';
 import { UserRole } from 'src/enum/user-role';
 import { AuthGuard } from 'src/guards/auth.guard';
-//import { Criteria } from 'src/model/criteria.entity';
 import { ActivityService } from 'src/service/activity.service';
 import { ActivityRecordService } from "src/service/activity.record.service";
 
@@ -16,26 +15,11 @@ export class ActivityController {
       private activityRecordService: ActivityRecordService
     ) {}
 
-    // @ApiBearerAuth()
-    // @Roles([UserRole.ADMIN])
-    // @UseGuards(AuthGuard)
-    // @Post()
-    // async createActivity(
-    //   @Req() request: Request,
-    //   @Body() createActivityDto: CreateActivityDto,
-    // ) {
-    //   await this.activityService.createActivity(
-    //     createActivityDto,
-    //     request['user'],
-    //   );
-    // }
-
     @Get("activities")
     getAllActivity(){
         return this.activityService.getAllActivity()
     }
 
-    // @ApiBearerAuth()
     @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
     @UseGuards(AuthGuard)
     @Get()
@@ -68,13 +52,6 @@ export class ActivityController {
         }
     }
 
-    // @Roles([UserRole.ADMIN, UserRole.EMPLOYEE])
-    // @UseGuards(AuthGuard)
-    // @Get("criteria")
-    // getActivitiesByCriteria (@Body() criteria : Criteria ) {
-    //     return this.activityService.getActivityByCriteria(criteria)
-    // }
-
     @Roles([UserRole.ADMIN])
     @UseGuards(AuthGuard)
     @Post()
@@ -83,7 +60,6 @@ export class ActivityController {
         return this.activityService.createActivity2(activityDto, userAdminId)
     }
 
-    //@Roles([UserRole.ADMIN])
     @UseGuards(AuthGuard)
     @Patch(":id")
     updateActivity (@Req()request : Request, @Param("id", ParseIntPipe) id: number, @Body() updateActivityDto : UpdateActivityDto){
@@ -106,9 +82,6 @@ export class ActivityController {
         return true;
       if(updateActivityDto.type)
         return true;
-      /*if(updateActivityDto.status != ActivityStatus.CANCELED && updateActivityDto.status != ActivityStatus.FINISHED && updateActivityDto.status != ActivityStatus.IN_PROGRESS)
-        return true;
-      */
       return false;
     }
 }

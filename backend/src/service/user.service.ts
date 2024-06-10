@@ -58,11 +58,6 @@ export class UserService {
     return results
   }
 
-  // updateUser(id: number, usuario: UpdateUserDto) {
-  //   this.userRepository.update({ id }, usuario)
-  //   return usuario
-  // }
-
   async updateUser(id: number,{ name, lastName, email, password, role, status }: CreatUserDto) {
     const usuario:UpdateUserDto= {
       name,
@@ -87,17 +82,5 @@ export class UserService {
     return user;
   }
 
-  // async toggleUserStatus(id: number): Promise<User> {
-  //   const user = await this.userRepository.findOne({
-  //     where: { id }
-  //   });
-  //   if (!user) {
-  //     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-  //   }
 
-  //   // Cambia el estado de "activo" a "inactivo" o viceversa
-  //   user.status = user.status === UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE;
-
-  //   return this.userRepository.save(user);
-  // }
 } 

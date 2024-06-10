@@ -29,11 +29,6 @@ export class ActivityService {
   async createActivity(createActivityDto: CreateActivityDto, user: User) {
     const activity: Activity = this.activiyRepository.create();
     activity.title = createActivityDto.description;
-    //activity.status = ActivityStatus.CREATED;
-    // activity.user = await this.userService.findOneById(
-    //   createActivityDto.user,
-    // );
-    //activity.user = user;
     await this.activiyRepository.save(activity);
   }
 
@@ -81,8 +76,6 @@ async updateActivity (id : number, dto : UpdateActivityDto, userId: number){
 	let activity = await this.getActivityById(id)
 	let lastRecord:ActivityRecord = await this.recordService.getLastRecord(activity);
 	const user:User = await this.userService.getUser(userId);
-	/*if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id || lastRecord.status != ActivityStatus.PENDING))
-		throw new UnauthorizedException("No esta asignado a esta actividad o la actividad no esta en estado PENDING");*/
 	if(user.role == UserRole.EMPLOYEE && (user.id != lastRecord.user.id))
 		throw new UnauthorizedException("No esta asignado a esta actividad");
 
@@ -145,20 +138,6 @@ async createRecordUpdate(dto : UpdateActivityDto, lastRecord:ActivityRecord, use
 	}
 }
 
-// NO ESTÁ SIENDO UTILIZADO.
-async getActivityByCriteria( criteria : Criteria ) {
-  let result
-  if (criteria.activityId){
-      result = await this.getActivityById(criteria.activityId)
-  } 
- if (criteria.userId){
-      result = await this.getActivityByUserId(criteria.userId)
-  } 
-  if (criteria.activityTitle){
-      result = await this.getActivityByTitle(criteria.activityTitle)
-  } 
-  return result
-}
 
 private async getActivityByUserId( id : number ) {
     let user = await this.userService.findOneById(id)
@@ -166,7 +145,6 @@ private async getActivityByUserId( id : number ) {
         throw new BadRequestException('User with id: ' + id + ' not found in db')
       }
     let activities = []
-    //activities = await this.activiyRepository.findBy({ user: user })
 
     if (!activities.length) {
         throw new BadRequestException(

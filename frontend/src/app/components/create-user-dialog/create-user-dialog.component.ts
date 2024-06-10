@@ -5,6 +5,8 @@ import { BaseComponent } from '../base/base.component';
 import { ButtonModule } from 'primeng/button';
 import { CreateUsuarioComponent } from '../create-usuario/create-usuario.component';
 import { DialogModule } from 'primeng/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
@@ -12,7 +14,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'create-user-dialog',
   standalone: true,
-  imports: [BaseComponent, ReactiveFormsModule, RouterLink, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateUsuarioComponent],
+  imports: [MatButtonModule,MatTooltipModule,BaseComponent, ReactiveFormsModule, RouterLink, NgIf, NgFor, ToastModule, DialogModule, ButtonModule, CreateUsuarioComponent],
   templateUrl: './create-user-dialog.component.html',
   styleUrls: ['./create-user-dialog.component.scss']
 })

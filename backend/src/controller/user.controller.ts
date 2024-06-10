@@ -44,18 +44,4 @@ export class UserController {
        return this.userService.updateUser(id,{name ,lastName,email,password,role,status})
     }
     
-
-//     @Post(':userId/toggle-status')
-//   async toggleUserStatus(@Param('userId') userId: number): Promise<User> {
-//     const user = await this.userService.findOne(userId);
-//     if (!user) {
-//       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-//     }
-
-//     // Cambia el estado de "activo" a "inactivo" o viceversa
-//     user.status = user.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-
-//     return this.userService.save(user);
-//   }
-
 }

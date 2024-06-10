@@ -8,12 +8,11 @@ export class AppLoggerMiddleware implements NestMiddleware {
 
   use(request: Request, response: Response, next: NextFunction): void {
     const { ip, method, originalUrl, body } = request;
-    //const userAgent = request.get('user-agent') || '';
     let startTime = new Date();
     const bodyParseado = JSON.stringify(body)
 
     this.loggerReq.log(
-      `${method} - path: ${originalUrl} - body: ${bodyParseado}` //- ${userAgent} ${ip}`
+      `${method} - path: ${originalUrl} - body: ${bodyParseado}` 
     );
 
     const cleanup = () => {
@@ -26,10 +25,9 @@ export class AppLoggerMiddleware implements NestMiddleware {
       let endTime = new Date();
       cleanup()
       const { statusCode } = response;
-      //const contentLength = response.get('content-length');
 
       this.loggerResp.log(
-        `${method} - path: ${originalUrl} - code: ${statusCode} - time: ${endTime.valueOf() - startTime.valueOf()} `//- ${contentLength} - ${userAgent} ${ip}
+        `${method} - path: ${originalUrl} - code: ${statusCode} - time: ${endTime.valueOf() - startTime.valueOf()} `
       );
     }
 

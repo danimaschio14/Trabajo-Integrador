@@ -1,4 +1,3 @@
-//import { ActivityRecord } from './../../../../../backend/src/model/activity.record.entity';
 import { Component, Input, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { NgFor, NgIf, formatDate, DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
